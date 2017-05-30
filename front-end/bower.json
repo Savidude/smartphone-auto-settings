@@ -1,0 +1,20 @@
+{
+  "name": "smartphone-auto-settings-front-end",
+  "authors": [
+    "savidurd@gmail.com"
+  ],
+  "description": "UI for the Smartphone Auto Settings Project",
+  "main": "index.html",
+  "license": "MIT",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "polymer": "Polymer/polymer#^2.0.1"
+  }
+}
