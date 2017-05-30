@@ -1,9 +1,58 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <script src="bower_components/webcomponentsjs/webcomponents.js"></script>
-    </head>
-    <body>
+        <title>Smartphone Auto Settings</title>
+        <script src="bower_components/webcomponentsjs/webcomponents-lite.js"></script>
 
+        <link rel="import" href="bower_components/app-layout/app-layout.html">
+        <link rel="import" href="bower_components/paper-icon-button/paper-icon-button.html">
+        <link rel="import" href="bower_components/paper-menu/paper-menu.html">
+        <link rel="import" href="bower_components/paper-item/paper-item.html">
+        <link rel="import" href="src/card-element.html">
+
+        <custom-style>
+            <style>
+                body {
+                    margin: 0;
+                }
+                app-toolbar {
+                    background-color: #1E88E5;
+                    font-family: 'Roboto', Helvetica, sans-serif;
+                    color: white;
+                    --app-toolbar-font-size: 24px;
+                }
+                card-element {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    margin-left: 6px;
+                    margin-right: 6px;
+                    margin-bottom: 12px;
+                    margin-top: 12px;
+                }
+            </style>
+        </custom-style>
+    </head>
+
+    <body>
+        <app-header fixed condenses effects="waterfall">
+            <app-toolbar>
+                <paper-icon-button icon="menu" onclick="drawer.toggle()"></paper-icon-button>
+                <div main-title>Smartphone Auto Settings</div>
+            </app-toolbar>
+        </app-header>
+
+        <app-drawer id="drawer" swipe-open>
+            <paper-menu>
+                <paper-item>Home</paper-item>
+                <paper-item>Locations</paper-item>
+                <paper-item>Events</paper-item>
+            </paper-menu>
+        </app-drawer>
+
+        <div class="cards">
+            <card-element name="Locations" description="Locations you have visited" icon="maps:place"></card-element>
+            <card-element name="Events" description="Events created by you" icon="image:flash-on"></card-element>
+        </div>
     </body>
 </html>
