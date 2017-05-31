@@ -1,7 +1,6 @@
-<link rel="import" href="../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../bower_components/polymer/polymer.html">
 <link rel="import" href="../bower_components/app-layout/app-layout.html">
 <link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
-<link rel="import" href="../bower_components/paper-menu/paper-menu.html">
 <link rel="import" href="../bower_components/paper-item/paper-item.html">
 <link rel="import" href="../bower_components/iron-icons/maps-icons.html">
 <link rel="import" href="../bower_components/iron-icons/image-icons.html">
@@ -26,11 +25,9 @@
 
         <app-drawer-layout>
             <app-drawer slot="drawer">
-                <paper-menu>
                     <paper-item><iron-icon icon="home"></iron-icon>Home</paper-item>
                     <paper-item><iron-icon icon="maps:place"></iron-icon>Locations</paper-item>
                     <paper-item><iron-icon icon="image:flash-on"></iron-icon>Events</paper-item>
-                </paper-menu>
             </app-drawer>
 
             <app-header-layout>
@@ -45,24 +42,14 @@
     </template>
 
     <script>
-        class HeaderElement extends Polymer.Element {
-            static get is() {
-                return "header-element";
-            }
-            constructor() {
-                super();
-            }
-            static get properties() {
-                return {
-                    title: {
-                        type: String,
-                        notify: true,
-                        reflectToAttribute: true,
-                        value: "Smartphone Auto Settings"
-                    }
+        Polymer({
+            is: "header-element",
+            properties: {
+                title: {
+                    type: String,
+                    value: "Smartphone Auto Settings"
                 }
             }
-        }
-        customElements.define(HeaderElement.is, HeaderElement);
+        });
     </script>
 </dom-module>

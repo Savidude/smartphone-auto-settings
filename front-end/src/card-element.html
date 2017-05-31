@@ -1,4 +1,4 @@
-<link rel="import" href="../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../bower_components/polymer/polymer.html">
 <link rel="import" href="../bower_components/paper-card/paper-card.html">
 <link rel="import" href="../bower_components/paper-button/paper-button.html">
 <link rel="import" href="../bower_components/iron-icons/maps-icons.html">
@@ -38,12 +38,10 @@
             <div class="card-actions">
                 <div class="horizontal justified">
                     <paper-button>
-                        <iron-icon icon="visibility"></iron-icon>
-                        View
+                        <iron-icon icon="visibility"></iron-icon>View
                     </paper-button>
-                    <paper-button>
-                        <iron-icon icon="add"></iron-icon>
-                        Add
+                    <paper-button on-tap="create">
+                        <iron-icon icon="add"></iron-icon>Add
                     </paper-button>
                 </div>
             </div>
@@ -51,33 +49,19 @@
     </template>
 
     <script>
-        class CardElement extends Polymer.Element {
-            static get is() {
-                return "card-element";
-            }
-            static get properties() {
-                return {
-                    name: {
-                        type: String,
-                        notify: true,
-                        reflectToAttribute: true
-                    },
-                    description: {
-                        type: String,
-                        notify: true,
-                        reflectToAttribute: true
-                    },
-                    icon: {
-                        type: String,
-                        notify: true,
-                        reflectToAttribute: true
-                    }
+        Polymer({
+            is: "card-element",
+            properties: {
+                name: {
+                    type: String
+                },
+                description: {
+                    type: String
+                },
+                icon: {
+                    type: String
                 }
             }
-            constructor() {
-                super();
-            }
-        }
-        customElements.define(CardElement.is, CardElement);
+        });
     </script>
 </dom-module>
