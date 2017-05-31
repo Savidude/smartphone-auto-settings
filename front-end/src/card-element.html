@@ -30,7 +30,7 @@
             <div class="card-content">
                 <div class="card-header">
                     <iron-icon icon="{{icon}}"></iron-icon>
-                    [[name]]
+                    <div>[[name]]</div>
                 </div>
 
                 <p class="card-light">[[description]]</p>
@@ -38,10 +38,12 @@
             <div class="card-actions">
                 <div class="horizontal justified">
                     <paper-button>
-                        <iron-icon icon="visibility"></iron-icon>View
+                        <iron-icon icon="visibility"></iron-icon>
+                        <div>View</div>
                     </paper-button>
                     <paper-button on-tap="create">
-                        <iron-icon icon="add"></iron-icon>Add
+                        <iron-icon icon="add"></iron-icon>
+                        <div>Add</div>
                     </paper-button>
                 </div>
             </div>
@@ -61,6 +63,10 @@
                 icon: {
                     type: String
                 }
+            },
+            create: function (e) {
+                var res = this.name.toLowerCase();
+                location.href = 'create-' + res + '.html';
             }
         });
     </script>

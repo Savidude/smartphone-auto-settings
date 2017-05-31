@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Smartphone Auto Settings</title>
+
+        <script src="bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+        <link rel="import" href="src/header-element.html">
+        <link rel="import" href="bower_components/paper-button/paper-button.html">
+        <link rel="import" href="bower_components/iron-collapse/iron-collapse.html">
+        <link rel="import" href="bower_components/paper-radio-group/paper-radio-group.html">
+        <link rel="import" href="bower_components/paper-radio-button/paper-radio-button.html">
+        <link rel="import" href="bower_components/paper-dialog/paper-dialog.html">
+        <link rel="import" href="bower_components/paper-dropdown-menu/paper-dropdown-menu.html">
+        <link rel="import" href="bower_components/paper-listbox/paper-listbox.html">
+        <link rel="import" href="bower_components/paper-item/paper-item.html">
+        <link rel="import" href="bower_components/paper-slider/paper-slider.html">
+        <link rel="import" href="bower_components/paper-checkbox/paper-checkbox.html">
+
+        <style>
+            body {
+                margin: 0;
+            }
+            paper-checkbox {
+                font-size: larger;
+            }
+            .container {
+                margin-top: 80px;
+            }
+            .collapse-content {
+                margin-top: 6px;
+                padding: 15px;
+                border: 1px solid #dedede;
+            }
+            .event-button {
+                width: 95%;
+            }
+            .event-icon {
+                margin-left: 200px;
+            }
+            #battery-value {
+                text-align: center;
+                color: var(--paper-grey-600);
+            }
+        </style>
+    </head>
+
+    <body>
+        <div class="container">
+            <div class="conditions">
+                <paper-button raised class="event-button" onclick="conditions.toggle()">
+                    <div>Conditions</div>
+                    <iron-icon class="event-icon" icon="add-circle-outline"></iron-icon>
+                </paper-button>
+                <iron-collapse id="conditions">
+                    <div class="collapse-content">
+                        <div id="airplane-mode">
+                            <paper-button onclick="airplane.toggle()">Airplane mode</paper-button>
+                            <iron-collapse id="airplane">
+                                <paper-radio-group allow-empty-selection>
+                                    <paper-radio-button name="enabled">Airplane mode enabled</paper-radio-button>
+                                    <paper-radio-button name="disabled">Airplane mode disabled</paper-radio-button>
+                                </paper-radio-group>
+                            </iron-collapse>
+                        </div>
+
+                        <div id="battery">
+                            <paper-button onclick="batteryDialog.open()">Battery level</paper-button>
+                            <paper-dialog id="batteryDialog">
+                                <h2>Battery level</h2>
+                                <paper-dropdown-menu>
+                                    <paper-listbox slot="dropdown-content" selected="0">
+                                        <paper-item>Battery level is below</paper-item>
+                                        <paper-item>Battery level is above</paper-item>
+                                    </paper-listbox>
+                                </paper-dropdown-menu>
+                                <div id="battery-value">50</div>
+                                <paper-slider id="battery-slider" min="0" max="100" value="50" onchange="displayBatteryLevel()"></paper-slider>
+                            </paper-dialog>
+                        </div>
+
+                        <div id="charging-mode">
+                            <paper-button onclick="charging.toggle()">Charging status</paper-button>
+                            <iron-collapse id="charging">
+                                <paper-radio-group allow-empty-selection>
+                                    <paper-radio-button name="enabled">Charging</paper-radio-button>
+                                    <paper-radio-button name="disabled">Using battery</paper-radio-button>
+                                </paper-radio-group>
+                            </iron-collapse>
+                        </div>
+
+                        <div id="day-of-week">
+                            <paper-button onclick="day.toggle()">Day of week</paper-button>
+                            <iron-collapse id="day">
+                                <paper-checkbox>Monday</paper-checkbox> <br>
+                                <paper-checkbox>Tuesday</paper-checkbox> <br>
+                                <paper-checkbox>Wednesday</paper-checkbox> <br>
+                                <paper-checkbox>Thursday</paper-checkbox> <br>
+                                <paper-checkbox>Friday</paper-checkbox> <br>
+                                <paper-checkbox>Saturday</paper-checkbox> <br>
+                                <paper-checkbox>Sunday</paper-checkbox>
+                            </iron-collapse>
+                        </div>
+
+                        <div id="headset-status">
+                            <paper-button onclick="headset.toggle()">Headset</paper-button>
+                            <iron-collapse id="headset">
+                                <paper-radio-group allow-empty-selection>
+                                    <paper-radio-button name="enabled">Headset connected</paper-radio-button>
+                                    <paper-radio-button name="disabled">Headset disconnected</paper-radio-button>
+                                </paper-radio-group>
+                            </iron-collapse>
+                        </div>
+                    </div>
+                </iron-collapse>
+            </div>
+
+            <div class="actions">
+                <paper-button raised class="event-button" onclick="actions.toggle()">
+                    <div>Actions</div>
+                    <iron-icon class="event-icon" icon="add-circle-outline"></iron-icon>
+                </paper-button>
+                <iron-collapse id="actions">
+                    <div class="collapse-content">
+                        <div id="airplane-mode-action">
+                            <paper-button onclick="airplaneAction.toggle()">Airplane mode</paper-button>
+                            <iron-collapse id="airplaneAction">
+                                <paper-radio-group allow-empty-selection>
+                                    <paper-radio-button name="enabled">Turn airplane mode on</paper-radio-button>
+                                    <paper-radio-button name="disabled">Turn airplane mode off</paper-radio-button>
+                                </paper-radio-group>
+                            </iron-collapse>
+                        </div>
+
+                        <div id="media-player">
+                            <paper-button onclick="media.toggle()">Media Player</paper-button>
+                            <iron-collapse id="media">
+                                <paper-radio-group allow-empty-selection>
+                                    <paper-radio-button name="play-pause">Play/pause</paper-radio-button>
+                                    <paper-radio-button name="next">Next track</paper-radio-button>
+                                    <paper-radio-button name="previous">Previous track</paper-radio-button>
+                                    <paper-radio-button name="stop">Stop</paper-radio-button>
+                                    <paper-radio-button name="rewind">Rewind</paper-radio-button>
+                                </paper-radio-group>
+                            </iron-collapse>
+                        </div>
+
+                        <div id="brightness">
+                            <paper-button onclick="brightnessDialog.open()">Brightness</paper-button>
+                            <paper-dialog id="brightnessDialog">
+                                <h2>Brightness level</h2>
+                                <div id="brightness-value">50%</div>
+                                <paper-slider id="brightness-slider" min="0" max="100" value="50" onchange="displayBrightnessLevel()"></paper-slider>
+                            </paper-dialog>
+                        </div>
+
+                        <div id="screen-timeout">
+                            <paper-button onclick="timeout.toggle()">Change screen timeout</paper-button>
+                            <iron-collapse id="timeout">
+                                <paper-radio-group allow-empty-selection>
+                                    <paper-radio-button name="30s">30 Seconds</paper-radio-button>
+                                    <paper-radio-button name="1m">1 minute</paper-radio-button>
+                                    <paper-radio-button name="2m">2 minutes</paper-radio-button>
+                                    <paper-radio-button name="3m">3 minutes</paper-radio-button>
+                                    <paper-radio-button name="4m">4 minutes</paper-radio-button>
+                                    <paper-radio-button name="5m">5 minutes</paper-radio-button>
+                                    <paper-radio-button name="10m">10 minutes</paper-radio-button>
+                                    <paper-radio-button name="15m">15 minutes</paper-radio-button>
+                                    <paper-radio-button name="20m">20 minutes</paper-radio-button>
+                                    <paper-radio-button name="25m">25 minutes</paper-radio-button>
+                                </paper-radio-group>
+                            </iron-collapse>
+                        </div>
+
+                        <div id="screen-rotation">
+                            <paper-button onclick="rotation.toggle()">Screen rotation</paper-button>
+                            <iron-collapse id="rotation">
+                                <paper-radio-group allow-empty-selection>
+                                    <paper-radio-button name="enabled">No rotation</paper-radio-button>
+                                    <paper-radio-button name="disabled">Rotation on</paper-radio-button>
+                                </paper-radio-group>
+                            </iron-collapse>
+                        </div>
+                    </div>
+                </iron-collapse>
+            </div>
+        </div>
+        <header-element title="Create Event"></header-element>
+
+        <script>
+            function displayBatteryLevel() {
+                var batteryLevel = document.getElementById("battery-slider").value;
+                document.getElementById("battery-value").innerHTML = batteryLevel;
+            }
+
+            function displayBrightnessLevel() {
+                var brightnessLevel = document.getElementById("brightness-slider").value;
+                document.getElementById("brightness-value").innerHTML = brightnessLevel + '%';
+            }
+        </script>
+    </body>
+</html>
