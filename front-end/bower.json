@@ -29,6 +29,7 @@
     "paper-dropdown-menu": "PolymerElements/paper-dropdown-menu#^2.0.0",
     "paper-listbox": "PolymerElements/paper-listbox#^2.0.0",
     "paper-slider": "PolymerElements/paper-slider#^2.0.0",
-    "paper-checkbox": "PolymerElements/paper-checkbox#^2.0.0"
+    "paper-checkbox": "PolymerElements/paper-checkbox#^2.0.0",
+    "paper-input": "PolymerElements/paper-input#^2.0.0"
   }
 }

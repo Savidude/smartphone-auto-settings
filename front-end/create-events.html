@@ -16,6 +16,7 @@
         <link rel="import" href="bower_components/paper-item/paper-item.html">
         <link rel="import" href="bower_components/paper-slider/paper-slider.html">
         <link rel="import" href="bower_components/paper-checkbox/paper-checkbox.html">
+        <link rel="import" href="bower_components/paper-input/paper-input.html">
 
         <style>
             body {
@@ -38,6 +39,15 @@
             .event-icon {
                 margin-left: 200px;
             }
+            .event-data {
+                margin-top: 12px;
+                margin-bottom: 12px;
+            }
+            .name {
+                margin-left: 12px;
+                margin-right: 12px;
+                margin-bottom: 12px;
+            }
             #battery-value {
                 text-align: center;
                 color: var(--paper-grey-600);
@@ -47,7 +57,11 @@
 
     <body>
         <div class="container">
-            <div class="conditions">
+            <div class="name">
+                <paper-input label="Location name"></paper-input>
+            </div>
+
+            <div class="event-data conditions">
                 <paper-button raised class="event-button" onclick="conditions.toggle()">
                     <div>Conditions</div>
                     <iron-icon class="event-icon" icon="add-circle-outline"></iron-icon>
@@ -115,7 +129,7 @@
                 </iron-collapse>
             </div>
 
-            <div class="actions">
+            <div class="event-data actions">
                 <paper-button raised class="event-button" onclick="actions.toggle()">
                     <div>Actions</div>
                     <iron-icon class="event-icon" icon="add-circle-outline"></iron-icon>
