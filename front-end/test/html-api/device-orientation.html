@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Device Orientation</title>
+
+        <style>
+            p,
+            #device {
+                margin: 10px;
+            }
+
+            #device {
+                border: 1px solid black;
+                border-radius: 10px;
+            }
+
+            #device:after {
+                content: 'A';
+                font: 80px serif;
+                display: block;
+                text-align: center;
+            }
+
+            #unlock {
+                display: none;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div id="device"></div>
+
+        <p>
+            <button class="btn btn-primary" id="lock">Lock in current orientation</button>
+            <button class="btn btn-primary" id="unlock">Release the lock</button>
+        </p>
+
+        <p>Current screen orientation is <b id="orientationType">unknown</b>.</p>
+
+        <p id="logTarget"></p>
+
+        <script src="js/device-orientation.js"></script>
+    </body>
+</html>
