@@ -55,10 +55,10 @@
         </style>
     </head>
 
-    <body>
+    <body unresolved>
         <div class="container">
             <div class="name">
-                <paper-input label="Event name"></paper-input>
+                <paper-input id="event-name" label="Event name"></paper-input>
             </div>
 
             <div class="event-data conditions">
@@ -72,8 +72,8 @@
                             <paper-button onclick="airplane.toggle()">Airplane mode</paper-button>
                             <iron-collapse id="airplane">
                                 <paper-radio-group allow-empty-selection>
-                                    <paper-radio-button name="enabled">Airplane mode enabled</paper-radio-button>
-                                    <paper-radio-button name="disabled">Airplane mode disabled</paper-radio-button>
+                                    <paper-radio-button name="airplane-mode" value="enabled">Airplane mode enabled</paper-radio-button>
+                                    <paper-radio-button name="airplane-mode" value="disabled">Airplane mode disabled</paper-radio-button>
                                 </paper-radio-group>
                             </iron-collapse>
                         </div>
@@ -83,9 +83,9 @@
                             <paper-dialog id="batteryDialog">
                                 <h2>Battery level</h2>
                                 <paper-dropdown-menu>
-                                    <paper-listbox slot="dropdown-content" selected="0">
-                                        <paper-item>Battery level is below</paper-item>
-                                        <paper-item>Battery level is above</paper-item>
+                                    <paper-listbox slot="dropdown-content" id="battery-list" selected="0">
+                                        <paper-item value="below">Battery level is below</paper-item>
+                                        <paper-item value="above">Battery level is above</paper-item>
                                     </paper-listbox>
                                 </paper-dropdown-menu>
                                 <div id="battery-value">50</div>
@@ -97,8 +97,8 @@
                             <paper-button onclick="charging.toggle()">Charging status</paper-button>
                             <iron-collapse id="charging">
                                 <paper-radio-group allow-empty-selection>
-                                    <paper-radio-button name="enabled">Charging</paper-radio-button>
-                                    <paper-radio-button name="disabled">Using battery</paper-radio-button>
+                                    <paper-radio-button name="charging-state" value="charging">Charging</paper-radio-button>
+                                    <paper-radio-button name="charging-state" value="discharging">Using battery</paper-radio-button>
                                 </paper-radio-group>
                             </iron-collapse>
                         </div>
@@ -106,13 +106,13 @@
                         <div id="day-of-week">
                             <paper-button onclick="day.toggle()">Day of week</paper-button>
                             <iron-collapse id="day">
-                                <paper-checkbox>Monday</paper-checkbox> <br>
-                                <paper-checkbox>Tuesday</paper-checkbox> <br>
-                                <paper-checkbox>Wednesday</paper-checkbox> <br>
-                                <paper-checkbox>Thursday</paper-checkbox> <br>
-                                <paper-checkbox>Friday</paper-checkbox> <br>
-                                <paper-checkbox>Saturday</paper-checkbox> <br>
-                                <paper-checkbox>Sunday</paper-checkbox>
+                                <paper-checkbox name="day-check" value="0">Monday</paper-checkbox> <br>
+                                <paper-checkbox name="day-check" value="1">Tuesday</paper-checkbox> <br>
+                                <paper-checkbox name="day-check" value="2">Wednesday</paper-checkbox> <br>
+                                <paper-checkbox name="day-check" value="3">Thursday</paper-checkbox> <br>
+                                <paper-checkbox name="day-check" value="4">Friday</paper-checkbox> <br>
+                                <paper-checkbox name="day-check" value="5">Saturday</paper-checkbox> <br>
+                                <paper-checkbox name="day-check" value="6">Sunday</paper-checkbox>
                             </iron-collapse>
                         </div>
 
@@ -120,8 +120,8 @@
                             <paper-button onclick="headset.toggle()">Headset</paper-button>
                             <iron-collapse id="headset">
                                 <paper-radio-group allow-empty-selection>
-                                    <paper-radio-button name="enabled">Headset connected</paper-radio-button>
-                                    <paper-radio-button name="disabled">Headset disconnected</paper-radio-button>
+                                    <paper-radio-button name="headset-condition" value="connected">Headset connected</paper-radio-button>
+                                    <paper-radio-button name="headset-condition" value="disconnected">Headset disconnected</paper-radio-button>
                                 </paper-radio-group>
                             </iron-collapse>
                         </div>
@@ -140,8 +140,8 @@
                             <paper-button onclick="airplaneAction.toggle()">Airplane mode</paper-button>
                             <iron-collapse id="airplaneAction">
                                 <paper-radio-group allow-empty-selection>
-                                    <paper-radio-button name="enabled">Turn airplane mode on</paper-radio-button>
-                                    <paper-radio-button name="disabled">Turn airplane mode off</paper-radio-button>
+                                    <paper-radio-button name="airplane-action" value="enable">Turn airplane mode on</paper-radio-button>
+                                    <paper-radio-button name="airplane-action" value="disable">Turn airplane mode off</paper-radio-button>
                                 </paper-radio-group>
                             </iron-collapse>
                         </div>
@@ -150,11 +150,11 @@
                             <paper-button onclick="media.toggle()">Media Player</paper-button>
                             <iron-collapse id="media">
                                 <paper-radio-group allow-empty-selection>
-                                    <paper-radio-button name="play-pause">Play/pause</paper-radio-button>
-                                    <paper-radio-button name="next">Next track</paper-radio-button>
-                                    <paper-radio-button name="previous">Previous track</paper-radio-button>
-                                    <paper-radio-button name="stop">Stop</paper-radio-button>
-                                    <paper-radio-button name="rewind">Rewind</paper-radio-button>
+                                    <paper-radio-button name="media-action" value="play-pause">Play/pause</paper-radio-button>
+                                    <paper-radio-button name="media-action" value="next">Next track</paper-radio-button>
+                                    <paper-radio-button name="media-action" value="previous">Previous track</paper-radio-button>
+                                    <paper-radio-button name="media-action" value="stop">Stop</paper-radio-button>
+                                    <paper-radio-button name="media-action" value="rewind">Rewind</paper-radio-button>
                                 </paper-radio-group>
                             </iron-collapse>
                         </div>
@@ -172,16 +172,16 @@
                             <paper-button onclick="timeout.toggle()">Change screen timeout</paper-button>
                             <iron-collapse id="timeout">
                                 <paper-radio-group allow-empty-selection>
-                                    <paper-radio-button name="30s">30 Seconds</paper-radio-button>
-                                    <paper-radio-button name="1m">1 minute</paper-radio-button>
-                                    <paper-radio-button name="2m">2 minutes</paper-radio-button>
-                                    <paper-radio-button name="3m">3 minutes</paper-radio-button>
-                                    <paper-radio-button name="4m">4 minutes</paper-radio-button>
-                                    <paper-radio-button name="5m">5 minutes</paper-radio-button>
-                                    <paper-radio-button name="10m">10 minutes</paper-radio-button>
-                                    <paper-radio-button name="15m">15 minutes</paper-radio-button>
-                                    <paper-radio-button name="20m">20 minutes</paper-radio-button>
-                                    <paper-radio-button name="25m">25 minutes</paper-radio-button>
+                                    <paper-radio-button name="timeout-action" value="30s">30 Seconds</paper-radio-button>
+                                    <paper-radio-button name="timeout-action" value="1m">1 minute</paper-radio-button>
+                                    <paper-radio-button name="timeout-action" value="2m">2 minutes</paper-radio-button>
+                                    <paper-radio-button name="timeout-action" value="3m">3 minutes</paper-radio-button>
+                                    <paper-radio-button name="timeout-action" value="4m">4 minutes</paper-radio-button>
+                                    <paper-radio-button name="timeout-action" value="5m">5 minutes</paper-radio-button>
+                                    <paper-radio-button name="timeout-action" value="10m">10 minutes</paper-radio-button>
+                                    <paper-radio-button name="timeout-action" value="15m">15 minutes</paper-radio-button>
+                                    <paper-radio-button name="timeout-action" value="20m">20 minutes</paper-radio-button>
+                                    <paper-radio-button name="timeout-action" value="25m">25 minutes</paper-radio-button>
                                 </paper-radio-group>
                             </iron-collapse>
                         </div>
@@ -190,14 +190,16 @@
                             <paper-button onclick="rotation.toggle()">Screen rotation</paper-button>
                             <iron-collapse id="rotation">
                                 <paper-radio-group allow-empty-selection>
-                                    <paper-radio-button name="enabled">No rotation</paper-radio-button>
-                                    <paper-radio-button name="disabled">Rotation on</paper-radio-button>
+                                    <paper-radio-button name="rotation-action" value="disabled">No rotation</paper-radio-button>
+                                    <paper-radio-button name="rotation-action" value="enabled">Rotation on</paper-radio-button>
                                 </paper-radio-group>
                             </iron-collapse>
                         </div>
                     </div>
                 </iron-collapse>
             </div>
+
+            <paper-button raised id="create">Create Event</paper-button>
         </div>
         <header-element title="Create Event"></header-element>
 
@@ -212,5 +214,6 @@
                 document.getElementById("brightness-value").innerHTML = brightnessLevel + '%';
             }
         </script>
+        <script src="js/events.js"></script>
     </body>
 </html>
