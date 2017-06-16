@@ -3,14 +3,18 @@ var app = express();
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var cors = require('cors');
+var fs = require('fs');
 
 app.use(cors())
 
 Token = require('./models/token');
 
 //Connect to Mongoose
-// mongoose.connect('mongodb://localhost/smartphone-auto-settings');
-// var db = mongoose.connection;
+var contents = fs.readFileSync("config/conf.json");
+var jsonContent = JSON.parse(contents);
+var mongoDBUrl= jsonContent.mongoDBUrl;
+mongoose.connect(mongoDBUrl);
+var db = mongoose.connection;
 
 app.get('/', (req, res) => {
     console.log('/');
