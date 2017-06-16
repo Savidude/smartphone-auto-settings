@@ -1,4 +1,4 @@
-# smartphone-auto-settings
+# Smartphone Auto Settings
 Physical Web Smartphone Auto Settings Project
 
 ### Setting up
@@ -12,18 +12,7 @@ $ git clone https://github.com/Savidude/smartphone-auto-settings.git
 $ git npm install -g bower
 ```
 
-#### Setting up the front end application
-1. Navigate into the front-end directory of the repository
-```shell
-$ cd smartphone-auto-settings/front-end
-```
-2. Install bower components
-```shell
-$ bower install
-```
-3. Run the front end application in a webserver
-```shell
-$ python -m SimpleHTTPServer <PORT>
-eg: $ python -m SimpleHTTPServer 8000
-```
-4. Open the application on a mobile or desktop web browser with the URL [http://<YOUR_IP_ADDRESS>:<PORT>](http://localhost:8000)
+#### Running the application
+1. Start the [API Server](https://github.com/Savidude/smartphone-auto-settings/api)
+2. Start the [Front End Application](https://github.com/Savidude/smartphone-auto-settings/front-end)
+
