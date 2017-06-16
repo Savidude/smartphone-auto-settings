@@ -1,9 +1,9 @@
 # Smartphone Auto Settings
 Physical Web Smartphone Auto Settings Project
 
-##Setting up the API
+## Setting up the API
 
-###Setting up MongoDB
+### Setting up MongoDB
 1. Download and install [MongoDB](https://docs.mongodb.com/manual/installation/)
 2. Run the Mongo Shell Client and create the smartphone-auto-settings database
 ```shell
@@ -20,7 +20,7 @@ $ mongo
 > exit
 ```
 
-###Setting up the API Server
+### Setting up the API Server
 1. Navigate to the smartphone-auto-settings/api directory
 ```shell
 $ cd smartphone-auto-settings/api
