@@ -2,13 +2,13 @@ $(document).ready(function() {
     //Checking if the browser supports LocalStorage
     if (storageAvailable('localStorage')) {
         var localStorage = window['localStorage'];
-        var token = localStorage.getItem('token');
-        //If there is no token in LocalStorage, get a token from the API
-        if (!token) {
+        var uid = localStorage.getItem('uid');
+        //If there is no user ID in LocalStorage, get a token from the API
+        if (!uid) {
             getToken(function (result) {
-                token = result['token'];
-                localStorage.setItem('token', token);
-            })
+                uid = result['uid'];
+                localStorage.setItem('uid', uid);
+            });
         }
     }
     else {
@@ -20,7 +20,7 @@ function getToken(handleData) {
     //Get the API endpoint from conf.json
     $.getJSON('../config/conf.json', function (data) {
         var apiEndpointUrl = data.apiEndpointUrl;
-        var tokenEndpoint = apiEndpointUrl + '/api/token';
+        var tokenEndpoint = apiEndpointUrl + '/api/uid';
 
         $.ajax({
             url: tokenEndpoint,

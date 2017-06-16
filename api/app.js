@@ -7,7 +7,7 @@ var fs = require('fs');
 
 app.use(cors())
 
-Token = require('./models/token');
+Uid = require('./models/uid');
 
 //Connect to Mongoose
 var contents = fs.readFileSync("config/conf.json");
@@ -17,13 +17,12 @@ mongoose.connect(mongoDBUrl);
 var db = mongoose.connection;
 
 app.get('/', (req, res) => {
-    console.log('/');
     res.send('Please use /api/events or /api/locations');
 });
 
-app.get('/api/token', (req, res) => {
-    var token = Token.getToken(1);
-    res.json(token);
+app.get('/api/uid', (req, res) => {
+    var uid = Uid.getUid(1);
+    res.json(uid);
 });
 
 app.listen(3000, function () {
