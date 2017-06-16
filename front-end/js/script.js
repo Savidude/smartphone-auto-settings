@@ -1,15 +1,13 @@
 $(document).ready(function() {
+    //Checking if the browser supports LocalStorage
     if (storageAvailable('localStorage')) {
         var localStorage = window['localStorage'];
         var token = localStorage.getItem('token');
-        if (token) {
-            console.log('token found');
-            console.log(token);
-        } else {
+        //If there is no token in LocalStorage, get a token from the API
+        if (!token) {
             getToken(function (result) {
                 token = result['token'];
                 localStorage.setItem('token', token);
-                console.log(token);
             })
         }
     }
@@ -19,21 +17,23 @@ $(document).ready(function() {
 });
 
 function getToken(handleData) {
-    $.ajax({
-        url: 'http://localhost:3000/api/token',
-        type: 'GET',
-        contentType: 'application/json',
-        headers: {
-            'Access-Control-Allow-Origin': '*',
-            'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept'
-        },
-        contentType: 'application/json; charset=utf-8',
-        success: function (result) {
-            handleData(result);
-        },
-        error: function (error) {
-            console.log(error);
-        }
+    //Get the API endpoint from conf.json
+    $.getJSON('../config/conf.json', function (data) {
+        var apiEndpointUrl = data.apiEndpointUrl;
+        var tokenEndpoint = apiEndpointUrl + '/api/token';
+
+        $.ajax({
+            url: tokenEndpoint,
+            type: 'GET',
+            contentType: 'application/json',
+            contentType: 'application/json; charset=utf-8',
+            success: function (result) {
+                handleData(result);
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
     });
 }
 
