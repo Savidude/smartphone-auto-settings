@@ -6,6 +6,7 @@ document.querySelector('#create').addEventListener('click', function (e) {
     var daysCondition = getDaysOfWeekCondition();
     var headsetCondition = getHeadsetCondition();
 
+    //Creating conditions object
     var conditions = {};
     conditions['airplaneMode'] = airplaneModeCondition;
     conditions['battery'] = batteryCondition;
@@ -20,6 +21,7 @@ document.querySelector('#create').addEventListener('click', function (e) {
     var timeoutAction = getTimeoutAction();
     var screenRotationAction = getScreenRotationAction();
 
+    //Creating actions object
     var actions = {};
     actions['airplaneMode'] = airplaneModeAction;
     actions['media'] = mediaPlayerAction;
@@ -27,11 +29,17 @@ document.querySelector('#create').addEventListener('click', function (e) {
     actions['timeout'] = timeoutAction;
     actions['rotation'] = screenRotationAction;
 
+    //Creating event object
     var event = {};
     event['name'] = document.getElementById('event-name').value;
     event['conditions'] = conditions;
     event['actions'] = actions;
-    console.log(JSON.stringify(event, null, 2));
+
+    //Getting the userID from localStorage
+    var localStorage = window['localStorage'];
+    var uid = localStorage.getItem('uid');
+
+    addEvent(uid, event);
 });
 
 function getAirplanemodeCondition() {
@@ -129,4 +137,32 @@ function getScreenRotationAction() {
             break;
         }
     }
+}
+
+function addEvent(uid, event) {
+    var eventData = {};
+    eventData['uid'] = uid;
+    eventData['event'] = event;
+
+    //Get the API endpoint from conf.json
+    $.getJSON('../config/conf.json', function (data) {
+        var apiEndpointUrl = data.apiEndpointUrl;
+        var eventEndpoint = apiEndpointUrl + '/api/event';
+        console.log(JSON.stringify(eventData, null, 2));
+
+        // $.post(eventEndpoint, eventData, function (data, status) {
+        //     console.log("Data: " + data + "\nStatus: " + status);
+        // });
+
+        $.ajax({
+            type: "POST",
+            contentType: 'application/json',
+            dataType: "json",
+            url: eventEndpoint,
+            data: JSON.stringify(eventData),
+            success: function (result) {
+                console.log(result);
+            }
+        });
+    });
 }

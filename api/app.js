@@ -6,8 +6,10 @@ var cors = require('cors');
 var fs = require('fs');
 
 app.use(cors())
+app.use(bodyParser.json());
 
 Uid = require('./models/uid');
+Event = require('./models/event');
 
 //Connect to Mongoose
 var contents = fs.readFileSync("config/conf.json");
@@ -23,6 +25,17 @@ app.get('/', (req, res) => {
 app.get('/api/uid', (req, res) => {
     var uid = Uid.getUid(1);
     res.json(uid);
+});
+
+
+app.post('/api/event', (req, res) => {
+    var event = req.body;
+    Event.addEvent(event, (err, event) => {
+        if (err) {
+            throw err;
+        }
+        res.json(event);
+    });
 });
 
 app.listen(3000, function () {
