@@ -10,6 +10,7 @@ app.use(bodyParser.json());
 
 Uid = require('./models/uid');
 Event = require('./models/event');
+Location = require('./models/location');
 
 //Connect to Mongoose
 var contents = fs.readFileSync("config/conf.json");
@@ -35,6 +36,16 @@ app.post('/api/event', (req, res) => {
             throw err;
         }
         res.json(event);
+    });
+});
+
+app.post('/api/location', (req, res) => {
+    var location = req.body;
+    Location.addLocation(location, (err, location) => {
+        if (err) {
+            throw err;
+        }
+        res.json(location);
     });
 });
 

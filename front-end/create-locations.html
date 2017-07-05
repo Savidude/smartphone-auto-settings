@@ -7,6 +7,9 @@
         <link rel="import" href="src/header-element.html">
         <link rel="import" href="bower_components/paper-input/paper-input.html">
         <link rel="import" href="bower_components/paper-button/paper-button.html">
+        <link rel="import" href="bower_components/paper-card/paper-card.html">
+        <link rel="import" href="bower_components/iron-icons/iron-icons.html">
+        <link rel="import" href="bower_components/paper-toast/paper-toast.html">
 
         <style>
             body {
@@ -15,18 +18,66 @@
             .container {
                 margin-top: 80px;
             }
-            paper-button {
+            #create {
                 width: 95%;
+            }
+            .hidden {
+                display:none;
+            }
+            .card-header {
+                font-family: 'Roboto', 'Noto', sans-serif;
+                -webkit-font-smoothing: antialiased;
+                font-size: 24px;
+                font-weight: 400;
+                letter-spacing: -.012em;
+                line-height: 32px;
+            }
+            .card-message {
+                color: #757575;
+            }
+            paper-card {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin-left: 6px;
+                margin-right: 6px;
+            }
+            .copy {
+                margin-left: 12px;
+                margin-right: 12px;
             }
         </style>
     </head>
 
     <body>
         <div class="container">
-            <paper-input label="Location name"></paper-input>
-            <paper-button raised>Create location</paper-button>
+            <paper-input id="location-name" label="Location name"></paper-input>
+            <paper-button raised id="create">Create location</paper-button>
         </div>
 
         <header-element title="Create Location"></header-element>
+
+        <div class="hidden">
+            <paper-card>
+                <div class="card-content">
+                    <div class="card-header">
+                        Location created!
+                    </div>
+                    <p class="card-message">Set your beacon to broadcast the following URL</p>
+                    <div class="broadcast-url">
+                        <paper-input id="url" readonly></paper-input>
+                        <paper-button raised onclick="toast0.open()" id="copy">
+                            <iron-icon class="copy" icon="content-copy"></iron-icon>
+                            <span>Copy to clipboard</span>
+                        </paper-button>
+                    </div>
+
+                    <paper-toast id="toast0" text="URL copied to clipboard"></paper-toast>
+                </div>
+            </paper-card>
+        </div>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <script src="js/locations.js"></script>
     </body>
 </html>

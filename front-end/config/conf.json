@@ -1,3 +1,4 @@
 {
-  "apiEndpointUrl":"http://localhost:3000"
+  "apiEndpointUrl":"http://localhost:3000",
+  "clientEndpointUrl":"http://localhost:8000"
 }
