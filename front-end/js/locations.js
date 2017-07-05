@@ -19,7 +19,6 @@ function addLocation(name) {
     $.getJSON('../config/conf.json', function (data) {
         var apiEndpointUrl = data.apiEndpointUrl;
         var locationEndpoint = apiEndpointUrl + '/api/location';
-        // console.log(JSON.stringify(locationData, null, 2));
 
         $.ajax({
             type: "POST",

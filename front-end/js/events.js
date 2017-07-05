@@ -148,11 +148,6 @@ function addEvent(uid, event) {
     $.getJSON('../config/conf.json', function (data) {
         var apiEndpointUrl = data.apiEndpointUrl;
         var eventEndpoint = apiEndpointUrl + '/api/event';
-        console.log(JSON.stringify(eventData, null, 2));
-
-        // $.post(eventEndpoint, eventData, function (data, status) {
-        //     console.log("Data: " + data + "\nStatus: " + status);
-        // });
 
         $.ajax({
             type: "POST",

@@ -12,7 +12,7 @@ const eventSchema = mongoose.Schema({
     }
 });
 
-const Location = module.exports = mongoose.model('Location', eventSchema);
+const Location = module.exports = mongoose.model('locations', eventSchema);
 
 module.exports.addLocation = (location, callback) => {
     var token = require('rand-token').uid;
