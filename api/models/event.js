@@ -24,3 +24,18 @@ module.exports.addEvent = (event, callback) => {
     event['id'] = eventId['id'];
     Event.create(event, callback);
 };
+
+module.exports.getEvents = (userId, locationId, callback) => {
+    var query = {uid : userId};
+    Event.find(query, (err, events) => {
+        events.forEach(function (entry) {
+            var eventsArray = [];
+            var event = entry['event'];
+            var location = event['location'];
+            if (location == locationId) {
+                eventsArray.push(event)
+            }
+            callback(eventsArray);
+        });
+    });
+};

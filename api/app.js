@@ -66,6 +66,15 @@ app.post('/api/event', (req, res) => {
     });
 });
 
+app.get('/api/event/user/:uid/location/:lid', (req, res) => {
+    var locationId = req.params.lid;
+    var userId = req.params.uid;
+
+    Event.getEvents(userId, locationId, (events) => {
+        res.json(events)
+    });
+});
+
 
 /*
 ----------------------------Location API------------------------------
