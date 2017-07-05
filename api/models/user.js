@@ -24,4 +24,16 @@ module.exports.addUser = (callback) => {
     var user = {};
     user['id'] = uid['id'];
     User.create(user, callback);
-}
+};
+
+module.exports.addLocation = (userId, locationId, options, callback) => {
+    var query = {id : userId};
+    var update = {
+        "$push": {
+            "locations" : {
+                "id" : locationId
+            }
+        }
+    };
+    User.findOneAndUpdate(query, update, options, callback);
+};

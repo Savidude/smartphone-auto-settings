@@ -24,8 +24,6 @@ app.get('/', (req, res) => {
 });
 
 app.get('/api/user', (req, res) => {
-    // var uid = Uid.getUid(1);
-    // res.json(uid);
     User.addUser((err, user) => {
         if (err) {
             throw err;
@@ -52,7 +50,14 @@ app.post('/api/location', (req, res) => {
         if (err) {
             throw err;
         }
-        res.json(location);
+        var userId = locationData['user']['id'];
+        var locationId = location['id'];
+        User.addLocation(userId, locationId, {}, (err, user) => {
+            if (err) {
+                throw err;
+            }
+            res.json(location);
+        });
     });
 });
 
