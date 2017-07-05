@@ -37,3 +37,20 @@ module.exports.addLocation = (userId, locationId, options, callback) => {
     };
     User.findOneAndUpdate(query, update, options, callback);
 };
+
+module.exports.addEvent = (userId, eventId, options, callback) => {
+    var query = {id : userId};
+    var update = {
+        "$push": {
+            "events" : {
+                "id" : eventId
+            }
+        }
+    };
+    User.findOneAndUpdate(query, update, options, callback);
+};
+
+module.exports.getUser = (userId, callback) => {
+    var query = {id : userId};
+    User.findOne(query, callback);
+};

@@ -23,6 +23,9 @@ app.get('/', (req, res) => {
     res.send('Please use /api/events or /api/locations');
 });
 
+/*
+ ----------------------------User API------------------------------
+ */
 app.get('/api/user', (req, res) => {
     User.addUser((err, user) => {
         if (err) {
@@ -32,17 +35,41 @@ app.get('/api/user', (req, res) => {
     });
 });
 
-
-app.post('/api/event', (req, res) => {
-    var event = req.body;
-    Event.addEvent(event, (err, event) => {
+app.get('/api/user/:id/locations', (req, res) => {
+    var userId = req.params.id;
+    User.getUser(userId, (err, user) => {
         if (err) {
             throw err;
         }
-        res.json(event);
+        var locations = user['locations'];
+        res.json(locations);
     });
 });
 
+/*
+ ----------------------------Event API------------------------------
+ */
+app.post('/api/event', (req, res) => {
+    var eventData = req.body;
+    Event.addEvent(eventData, (err, event) => {
+        if (err) {
+            throw err;
+        }
+        var userId = eventData['uid'];
+        var eventId = event['id'];
+        User.addEvent(userId, eventId, {}, (err, user) => {
+            if (err) {
+                throw err;
+            }
+            res.json(event);
+        });
+    });
+});
+
+
+/*
+----------------------------Location API------------------------------
+ */
 app.post('/api/location', (req, res) => {
     var locationData = req.body;
     var location = locationData['location'];
@@ -58,6 +85,16 @@ app.post('/api/location', (req, res) => {
             }
             res.json(location);
         });
+    });
+});
+
+app.get('/api/location/:id', (req, res) => {
+    var locationId = req.params.id;
+    Location.getLocation(locationId, (err, location) => {
+        if (err) {
+            throw err;
+        }
+        res.json(location);
     });
 });
 

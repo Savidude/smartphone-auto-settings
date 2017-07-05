@@ -48,6 +48,11 @@
                 margin-right: 12px;
                 margin-bottom: 12px;
             }
+            .location {
+                margin-left: 12px;
+                margin-right: 12px;
+                margin-bottom: 12px;
+            }
             #battery-value {
                 text-align: center;
                 color: var(--paper-grey-600);
@@ -59,6 +64,16 @@
         <div class="container">
             <div class="name">
                 <paper-input id="event-name" label="Event name"></paper-input>
+            </div>
+
+            <div class="location">
+                <!--<paper-dropdown-menu label="Select location">-->
+                    <!--<paper-listbox slot="dropdown-content" id="location-list">-->
+                        <!--<paper-item value="below">Battery level is below</paper-item>-->
+                        <!--<paper-item value="above">Battery level is above</paper-item>-->
+                    <!--</paper-listbox>-->
+                <!--</paper-dropdown-menu>-->
+                <paper-input id="location" label="Location ID"></paper-input>
             </div>
 
             <div class="event-data conditions">

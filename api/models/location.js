@@ -20,3 +20,8 @@ module.exports.addLocation = (location, callback) => {
     location['id'] = locationId['id'];
     Location.create(location, callback);
 };
+
+module.exports.getLocation = (locationId, callback) => {
+    var query = {id : locationId};
+    Location.findOne(query, callback);
+};

@@ -1,3 +1,50 @@
+$( document ).ready(function() {
+    //Getting the userID from localStorage
+    var localStorage = window['localStorage'];
+    var uid = localStorage.getItem('uid');
+
+    $.getJSON('../config/conf.json', function (data) {
+        var apiEndpointUrl = data.apiEndpointUrl;
+        var userDataEndpoint = apiEndpointUrl + '/api/user/' + uid + '/locations';
+
+        $.ajax({
+            url: userDataEndpoint,
+            type: 'GET',
+            contentType: 'application/json',
+            success: function (IDs) {
+                // var locationList = document.getElementById('location-list');
+
+                IDs.forEach(function (id) {
+                    var locationId = id['id'];
+                    var locationDataEndpoint = apiEndpointUrl + '/api/location/' + locationId;
+                    $.ajax({
+                        url: locationDataEndpoint,
+                        type: 'GET',
+                        contentType: 'application/json',
+                        success: function (location) {
+                            var locationName = location['name'];
+                            console.log(locationId + ' - ' + locationName)
+
+                            var locationItem = document.createElement('paper-item');
+                            locationItem.setAttribute('value', locationId);
+                            var text = document.createElement('text');
+                            text.textContent = locationName;
+                            locationItem.appendChild(text);
+                            // locationList.appendChild(locationItem);
+                        },
+                        error: function (error) {
+                            console.log(error);
+                        }
+                    });
+                });
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    });
+});
+
 document.querySelector('#create').addEventListener('click', function (e) {
     //Getting condition data
     var airplaneModeCondition = getAirplanemodeCondition();
@@ -32,6 +79,7 @@ document.querySelector('#create').addEventListener('click', function (e) {
     //Creating event object
     var event = {};
     event['name'] = document.getElementById('event-name').value;
+    event['location'] = document.getElementById('location').value;
     event['conditions'] = conditions;
     event['actions'] = actions;
 
@@ -156,7 +204,7 @@ function addEvent(uid, event) {
             url: eventEndpoint,
             data: JSON.stringify(eventData),
             success: function (result) {
-                console.log(result);
+                console.log(JSON.stringify(result, null, 2));
             }
         });
     });
