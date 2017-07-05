@@ -46,7 +46,8 @@ app.post('/api/event', (req, res) => {
 });
 
 app.post('/api/location', (req, res) => {
-    var location = req.body;
+    var locationData = req.body;
+    var location = locationData['location'];
     Location.addLocation(location, (err, location) => {
         if (err) {
             throw err;

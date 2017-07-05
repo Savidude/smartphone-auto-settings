@@ -13,7 +13,14 @@ document.querySelector('#copy').addEventListener('click', function (e) {
 
 function addLocation(name) {
     var locationData = {};
-    locationData['name'] = name;
+    locationData['location'] = {};
+    locationData['location']['name'] = name;
+
+    //Getting the userID from localStorage
+    var localStorage = window['localStorage'];
+    var uid = localStorage.getItem('uid');
+    locationData['user'] = {};
+    locationData['user']['id'] = uid;
 
     //Get the API endpoint from conf.json
     $.getJSON('../config/conf.json', function (data) {
