@@ -6,7 +6,7 @@ $(document).ready(function() {
         //If there is no user ID in LocalStorage, get a token from the API
         if (!uid) {
             getToken(function (result) {
-                uid = result['uid'];
+                uid = result['id'];
                 localStorage.setItem('uid', uid);
             });
         }
@@ -20,7 +20,7 @@ function getToken(handleData) {
     //Get the API endpoint from conf.json
     $.getJSON('../config/conf.json', function (data) {
         var apiEndpointUrl = data.apiEndpointUrl;
-        var tokenEndpoint = apiEndpointUrl + '/api/uid';
+        var tokenEndpoint = apiEndpointUrl + '/api/user';
 
         $.ajax({
             url: tokenEndpoint,

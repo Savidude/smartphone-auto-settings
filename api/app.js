@@ -8,7 +8,7 @@ var fs = require('fs');
 app.use(cors())
 app.use(bodyParser.json());
 
-Uid = require('./models/uid');
+User = require('./models/user');
 Event = require('./models/event');
 Location = require('./models/location');
 
@@ -23,9 +23,15 @@ app.get('/', (req, res) => {
     res.send('Please use /api/events or /api/locations');
 });
 
-app.get('/api/uid', (req, res) => {
-    var uid = Uid.getUid(1);
-    res.json(uid);
+app.get('/api/user', (req, res) => {
+    // var uid = Uid.getUid(1);
+    // res.json(uid);
+    User.addUser((err, user) => {
+        if (err) {
+            throw err;
+        }
+        res.json(user);
+    });
 });
 
 
