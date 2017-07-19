@@ -28,14 +28,14 @@ module.exports.addEvent = (event, callback) => {
 module.exports.getEvents = (userId, locationId, callback) => {
     var query = {uid : userId};
     Event.find(query, (err, events) => {
+        var eventsArray = [];
         events.forEach(function (entry) {
-            var eventsArray = [];
             var event = entry['event'];
             var location = event['location'];
             if (location == locationId) {
                 eventsArray.push(event)
             }
-            callback(eventsArray);
         });
+        callback(eventsArray);
     });
 };
