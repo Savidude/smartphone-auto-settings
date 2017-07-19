@@ -14,6 +14,7 @@ $ mongo
 ```shell
 > db.createCollection('events')
 > db.createCollection('locations')
+> db.createCollection('users')
 ```
 4. Exit from the Mongo Shell Client
 ```shell
