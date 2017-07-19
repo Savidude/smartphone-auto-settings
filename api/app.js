@@ -41,8 +41,12 @@ app.get('/api/user/:id/locations', (req, res) => {
         if (err) {
             throw err;
         }
-        var locations = user['locations'];
-        res.json(locations);
+        try {
+            var locations = user['locations'];
+            res.json(locations);
+        } catch (err) {
+            res.json(undefined); //TODO: send appropriate response
+        }
     });
 });
 

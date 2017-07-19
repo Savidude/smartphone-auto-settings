@@ -1,4 +1,9 @@
 $(document).ready(function() {
+    //Hiding HTML elements
+    $('.location-create').hide();
+    $('.pass').hide();
+    $('.fail').hide();
+
     //Checking if the browser supports LocalStorage
     if (storageAvailable('localStorage')) {
         var localStorage = window['localStorage'];
@@ -10,7 +15,6 @@ $(document).ready(function() {
                 localStorage.setItem('uid', uid);
             });
         }
-
         executeEvent(uid);
     }
     else {
@@ -29,12 +33,19 @@ function executeEvent(uid) {
             var apiEndpointUrl = data.apiEndpointUrl;
             var eventEndpoint = apiEndpointUrl + '/api/event/user/' + uid + '/location/' + locationId;
 
+            getLocation(data, locationId);
+
             $.ajax({
                 url: eventEndpoint,
                 type: 'GET',
                 contentType: 'application/json',
                 success: function (result) {
-                    console.log(JSON.stringify(result, null, 2))
+                    // console.log(JSON.stringify(result, null, 2));
+                    if (result.length != 0) {
+                        validateConditions(result);
+                    } else {
+                        $('.location-create').fadeIn('slow');
+                    }
                 },
                 error: function (error) {
                     console.log(error);
@@ -43,8 +54,40 @@ function executeEvent(uid) {
         });
         break;
     }
+}
 
+function getLocation(confData, locationId) {
+    var apiEndpointUrl = confData.apiEndpointUrl;
+    var locationEndpointUrl = apiEndpointUrl + '/api/location/' + locationId;
 
+    $.ajax({
+        url: locationEndpointUrl,
+        type: 'GET',
+        contentType: 'application/json',
+        success: function (location) {
+            var locationName = location['name'];
+            if (locationName != undefined) {
+                document.getElementById('location').innerHTML = locationName;
+            }
+        },
+        error: function (error) {
+            console.log(error);
+        }
+    });
+}
+
+function validateConditions(event) {
+    var isValid = false;
+    event.forEach(function (entry) {
+        var conditions = entry.conditions;
+
+    });
+
+    if (isValid) {
+        $('.pass').fadeIn('slow');
+    } else {
+        $('.fail').fadeIn('slow');
+    }
 }
 
 function getToken(handleData) {

@@ -6,18 +6,76 @@
     <script src="bower_components/webcomponentsjs/webcomponents-lite.js"></script>
     <link rel="import" href="src/header-element.html">
 
+    <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <link rel="import" href="bower_components/iron-icons/maps-icons.html">
+    <link rel="import" href="bower_components/iron-icons/iron-icons.html">
+    <link rel="import" href="bower_components/paper-button/paper-button.html">
+
     <style>
         body {
             margin: 0;
+        }
+        .container {
+            margin-top: 80px;
+        }
+        .location-name {
+            font-size: 24px;
+        }
+        .message {
+            color: #757575;
+        }
+        .location-create {
+            margin-top: 12px;
+            margin-right: 12px;
+            margin-left: 12px;
+        }
+        .event-status {
+            margin-top: 12px;
+            margin-right: 12px;
+            margin-left: 12px;
+        }
+        .center {
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
     </style>
 </head>
 
 <body>
+    <div class="container">
+        <div class="location-name center">
+            <iron-icon icon="maps:place"></iron-icon>
+            <span id="location" class="message">Unknown</span>
+        </div>
+
+        <div class="location-create">
+            <p class="message">An event is not available for this location.</p>
+            <paper-button class="center" raised on-tap="create">
+                <iron-icon icon="add"></iron-icon>
+                <span>Create Event</span>
+            </paper-button>
+        </div>
+
+        <div class="event-status">
+            <div class="pass center">
+                <div class="alert alert-success">
+                    <strong>Success!</strong> Event executed successfully.
+                </div>
+            </div>
+            <div class="fail center">
+                <div class="alert alert-danger">
+                    <strong>Failure!</strong> Event failed to execute. Conditions were not met.
+                </div>
+            </div>
+        </div>
+    </div>
 
     <header-element></header-element>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="js/eventProcessor.js"></script>
 </body>
 </html>
