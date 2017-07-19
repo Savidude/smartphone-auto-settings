@@ -42,7 +42,9 @@ function executeEvent(uid) {
                 success: function (result) {
                     // console.log(JSON.stringify(result, null, 2));
                     if (result.length != 0) {
-                        validateConditions(result);
+                        $.getScript('/js/eventProcessor/conditions.js', function () {
+                            validateConditions(result);
+                        });
                     } else {
                         $('.location-create').fadeIn('slow');
                     }
@@ -74,20 +76,6 @@ function getLocation(confData, locationId) {
             console.log(error);
         }
     });
-}
-
-function validateConditions(event) {
-    var isValid = false;
-    event.forEach(function (entry) {
-        var conditions = entry.conditions;
-
-    });
-
-    if (isValid) {
-        $('.pass').fadeIn('slow');
-    } else {
-        $('.fail').fadeIn('slow');
-    }
 }
 
 function getToken(handleData) {
