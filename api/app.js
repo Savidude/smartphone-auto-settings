@@ -63,21 +63,23 @@ app.post('/api/user/location', (req, res) => {
             throw err;
         }
         try {
-            var locations = user['locations'];
-            var visited = false;
-            for (var i = 0; i < locations.length; i++) {
-                if (locations[i]['id'] == locationId) {
-                    visited = true;
-                    break;
-                }
-            }
-            if (!visited) {
-                User.addLocation(userId, locationId, {}, (err, user) => {
-                    if (err) {
-                        throw err;
+            if (user != null) {
+                var locations = user['locations'];
+                var visited = false;
+                for (var i = 0; i < locations.length; i++) {
+                    if (locations[i]['id'] == locationId) {
+                        visited = true;
+                        break;
                     }
-                    res.json(user);
-                });
+                }
+                if (!visited) {
+                    User.addLocation(userId, locationId, {}, (err, user) => {
+                        if (err) {
+                            throw err;
+                        }
+                        res.json(user);
+                    });
+                }
             }
         } catch (err) {
             console.log(err);
