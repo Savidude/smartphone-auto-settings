@@ -40,12 +40,12 @@ function executeEvent(uid) {
                 type: 'GET',
                 contentType: 'application/json',
                 success: function (result) {
-                    // console.log(JSON.stringify(result, null, 2));
                     if (result.length != 0) {
                         $.getScript('/js/eventProcessor/conditions.js', function () {
                             validateConditions(result);
                         });
                     } else {
+                        addUserLocation(data, uid, locationId);
                         $('.location-create').fadeIn('slow');
                     }
                 },
@@ -56,6 +56,26 @@ function executeEvent(uid) {
         });
         break;
     }
+}
+
+function addUserLocation(confData, uid, locationId) {
+    var apiEndpointUrl = confData.apiEndpointUrl;
+    var userEndpointUrl = apiEndpointUrl + '/api/user/location'
+
+    var data = {};
+    data['uid'] = uid;
+    data['locationId'] = locationId;
+
+    $.ajax({
+        type: "POST",
+        contentType: 'application/json',
+        dataType: "json",
+        url: userEndpointUrl,
+        data: JSON.stringify(data),
+        success: function (result) {
+            console.log(result)
+        }
+    });
 }
 
 function getLocation(confData, locationId) {
