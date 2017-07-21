@@ -1,48 +1,66 @@
+var loc_id;
+
 $( document ).ready(function() {
     //Getting the userID from localStorage
     var localStorage = window['localStorage'];
     var uid = localStorage.getItem('uid');
 
-    $.getJSON('../config/conf.json', function (data) {
-        var apiEndpointUrl = data.apiEndpointUrl;
-        var userDataEndpoint = apiEndpointUrl + '/api/user/' + uid + '/locations';
+    //Getting location data from URL
+    var eventUrl = window.location.href;
+    let url = new URL(eventUrl);
+    let params = new URLSearchParams(url.search.slice(1));
 
-        $.ajax({
-            url: userDataEndpoint,
-            type: 'GET',
-            contentType: 'application/json',
-            success: function (IDs) {
-                // var locationList = document.getElementById('location-list');
+    var locationId = params.get('locationId');
+    var locationName = params.get('locationName');
 
-                IDs.forEach(function (id) {
-                    var locationId = id['id'];
-                    var locationDataEndpoint = apiEndpointUrl + '/api/location/' + locationId;
-                    $.ajax({
-                        url: locationDataEndpoint,
-                        type: 'GET',
-                        contentType: 'application/json',
-                        success: function (location) {
-                            var locationName = location['name'];
-                            console.log(locationId + ' - ' + locationName)
+    if (locationId != undefined && locationName != undefined) {
+        document.getElementById('location').value = locationName;
+        document.getElementById('location').setAttribute('readonly', 'true');
+        document.getElementById('location').setAttribute('label', 'Location');
+        loc_id = locationId;
+    } else {
+        //Getting the list of locations visited by the user
+        $.getJSON('../config/conf.json', function (data) {
+            var apiEndpointUrl = data.apiEndpointUrl;
+            var userDataEndpoint = apiEndpointUrl + '/api/user/' + uid + '/locations';
 
-                            var locationItem = document.createElement('paper-item');
-                            locationItem.setAttribute('value', locationId);
-                            var text = document.createElement('text');
-                            text.textContent = locationName;
-                            locationItem.appendChild(text);
-                            // locationList.appendChild(locationItem);
-                        },
-                        error: function (error) {
-                            console.log(error);
-                        }
+            $.ajax({
+                url: userDataEndpoint,
+                type: 'GET',
+                contentType: 'application/json',
+                success: function (IDs) {
+                    // var locationList = document.getElementById('location-list');
+
+                    IDs.forEach(function (id) {
+                        var locationId = id['id'];
+                        var locationDataEndpoint = apiEndpointUrl + '/api/location/' + locationId;
+                        $.ajax({
+                            url: locationDataEndpoint,
+                            type: 'GET',
+                            contentType: 'application/json',
+                            success: function (location) {
+                                var locationName = location['name'];
+                                console.log(locationId + ' - ' + locationName)
+
+                                var locationItem = document.createElement('paper-item');
+                                locationItem.setAttribute('value', locationId);
+                                var text = document.createElement('text');
+                                text.textContent = locationName;
+                                locationItem.appendChild(text);
+                                // locationList.appendChild(locationItem);
+                            },
+                            error: function (error) {
+                                console.log(error);
+                            }
+                        });
                     });
-                });
-            },
-            error: function (error) {
-                console.log(error);
-            }
+                },
+                error: function (error) {http://localhost:8000/location.html?id=wDfu59CpoXUjZyIN
+                    console.log(error);
+                }
+            });
         });
-    });
+    }
 });
 
 document.querySelector('#create').addEventListener('click', function (e) {
@@ -79,14 +97,17 @@ document.querySelector('#create').addEventListener('click', function (e) {
     //Creating event object
     var event = {};
     event['name'] = document.getElementById('event-name').value;
-    event['location'] = document.getElementById('location').value;
+    if (loc_id == undefined) {
+        event['location'] = document.getElementById('location').value;
+    } else {
+        event['location'] = loc_id;
+    }
     event['conditions'] = conditions;
     event['actions'] = actions;
 
     //Getting the userID from localStorage
     var localStorage = window['localStorage'];
     var uid = localStorage.getItem('uid');
-
     addEvent(uid, event);
 });
 

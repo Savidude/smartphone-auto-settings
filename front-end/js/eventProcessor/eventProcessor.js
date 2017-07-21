@@ -1,3 +1,6 @@
+var locationId;
+var locationName;
+
 $(document).ready(function() {
     //Hiding HTML elements
     $('.location-create').hide();
@@ -22,12 +25,16 @@ $(document).ready(function() {
     }
 });
 
+document.querySelector('#create').addEventListener('click', function (e) {
+    location.href = 'create-events.html?locationId=' + locationId + '&locationName=' + encodeURI(locationName);
+});
+
 function executeEvent(uid) {
     var locationUrl = window.location.href;
     let url = new URL(locationUrl);
     let params = new URLSearchParams(url.search.slice(1));
     for (let p of params) {
-        var locationId = p[1];
+        locationId = p[1];
 
         $.getJSON('../config/conf.json', function (data) {
             var apiEndpointUrl = data.apiEndpointUrl;
@@ -87,7 +94,7 @@ function getLocation(confData, locationId) {
         type: 'GET',
         contentType: 'application/json',
         success: function (location) {
-            var locationName = location['name'];
+            locationName = location['name'];
             if (locationName != undefined) {
                 document.getElementById('location').innerHTML = locationName;
             }
