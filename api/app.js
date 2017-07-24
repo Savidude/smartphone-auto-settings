@@ -4,6 +4,8 @@ var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var cors = require('cors');
 var fs = require('fs');
+var https = require('https');
+var path = require('path');
 
 app.use(cors())
 app.use(bodyParser.json());
@@ -104,7 +106,8 @@ app.post('/api/event', (req, res) => {
         var eventId = event['id'];
         User.addEvent(userId, eventId, {}, (err, user) => {
             if (err) {
-                throw err;
+                throw er
+var path = require('path');r;
             }
             res.json(event);
         });
@@ -158,6 +161,15 @@ app.get('/api/location/:id', (req, res) => {
     });
 });
 
-app.listen(3000, function () {
+// app.listen(3000, function () {
+//     console.log('CORS-enabled web server listening on port 3000');
+// });
+
+const httpsOptions = {
+    cert: fs.readFileSync(path.join('ssl/server.crt')),
+    key: fs.readFileSync(path.join('ssl/server.key'))
+}
+
+https.createServer(httpsOptions, app).listen(3000, function () {
     console.log('CORS-enabled web server listening on port 3000');
 });

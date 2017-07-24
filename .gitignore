@@ -3,5 +3,9 @@
 *.xml
 *.pem
 .idea
+*.key
+*.crt
+*.csr
+*.srl
 bower_components
 build
