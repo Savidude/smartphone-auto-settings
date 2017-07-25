@@ -55,7 +55,7 @@ $( document ).ready(function() {
                         });
                     });
                 },
-                error: function (error) {http://localhost:8000/location.html?id=wDfu59CpoXUjZyIN
+                error: function (error) {
                     console.log(error);
                 }
             });
@@ -150,7 +150,10 @@ function getDaysOfWeekCondition() {
             checkedDays.push(days[i].value);
         }
     }
-    return checkedDays;
+    console.log('days length: ' + checkedDays.length);
+    if (checkedDays.length > 0) {
+        return checkedDays;
+    }
 }
 
 function getHeadsetCondition() {
