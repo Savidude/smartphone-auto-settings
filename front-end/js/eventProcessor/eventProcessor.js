@@ -49,7 +49,12 @@ function executeEvent(uid) {
                 success: function (result) {
                     if (result.length != 0) {
                         $.getScript('/js/eventProcessor/conditions.js', function () {
-                            validateConditions(result);
+                            var isValid = validateConditions(result);
+                            if (isValid) {
+                                $('.pass').fadeIn('slow');
+                            } else {
+                                $('.fail').fadeIn('slow');
+                            }
                         });
                     } else {
                         addUserLocation(data, uid, locationId);
@@ -80,7 +85,7 @@ function addUserLocation(confData, uid, locationId) {
         url: userEndpointUrl,
         data: JSON.stringify(data),
         success: function (result) {
-            console.log(result)
+
         }
     });
 }
