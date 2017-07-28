@@ -43,6 +43,7 @@ function validateConditions(event) {
         //         break;
         //     }
         // }
+        return validConditions[i];
     }
 }
 
@@ -70,7 +71,6 @@ function validateBatteryLevel(batteryCondition, callback) {
 
         batteryPromise.then(function(battery) {
             var isValid = false;
-            // var isCharging = battery.charging;
             var level = battery.level * 100;
 
             var levelCondition = batteryCondition.batteryLevel;
