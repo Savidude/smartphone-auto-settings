@@ -7,7 +7,6 @@ var fs = require('fs');
 var https = require('https');
 var path = require('path');
 
-app.use(cors())
 app.use(bodyParser.json());
 
 User = require('./models/user');
@@ -161,15 +160,25 @@ app.get('/api/location/:id', (req, res) => {
     });
 });
 
-// app.listen(3000, function () {
-//     console.log('CORS-enabled web server listening on port 3000');
-// });
 
-const httpsOptions = {
-    cert: fs.readFileSync(path.join('ssl/server.crt')),
-    key: fs.readFileSync(path.join('ssl/server.key'))
+
+
+var hosting = jsonContent.hosting;
+
+if (hosting === 'local') {
+    app.use(cors());
+    const httpsOptions = {
+        cert: fs.readFileSync(path.join('ssl/server.crt')),
+        key: fs.readFileSync(path.join('ssl/server.key'))
+    };
+
+    https.createServer(httpsOptions, app).listen(3000, function () {
+        console.log('CORS-enabled web server listening on port 3000');
+    });
+} else if (hosting === 'remote') {
+    app.listen(3000, function () {
+        console.log('Web Server listening on port 3000');
+    });
+} else {
+    console.log('Invalid method of hosting selected. Please select either "local" or "remote" in conf.json')
 }
-
-https.createServer(httpsOptions, app).listen(3000, function () {
-    console.log('CORS-enabled web server listening on port 3000');
-});
