@@ -34,8 +34,7 @@ function addLocation(name) {
             url: locationEndpoint,
             data: JSON.stringify(locationData),
             success: function (result) {
-                var id = result['id'];
-                var locationUrl = data.clientEndpointUrl + '/location.html?id=' + id;
+                var locationUrl = result['url'];
                 changeElements(locationUrl);
             }
         });

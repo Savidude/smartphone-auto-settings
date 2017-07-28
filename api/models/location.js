@@ -11,6 +11,10 @@ const eventSchema = mongoose.Schema({
     name: {
         type: String,
         required: true
+    },
+    url: {
+        type: String,
+        required: true
     }
 });
 
@@ -27,13 +31,17 @@ module.exports.addLocation = (location, callback) => {
     var jsonContent = JSON.parse(contents);
     var frontEndUrl = jsonContent.frontEndUrl;
     var locationUrl = frontEndUrl + '/location.html?id=' + locationId['id'];
-    //TODO: Fix error when shortening URLs with IP addresses
-    // console.log(locationUrl)
-    // isgd.shorten(locationUrl, function (res) {
-    //     console.log(res);
-    // })
 
-    Location.create(location, callback);
+    if (jsonContent.hosting === 'remote') {
+        isgd.shorten(locationUrl, function (res) {
+            location['url'] = res;
+            Location.create(location, callback);
+            console.log('location created!')
+        });
+    } else if (jsonContent.hosting === 'local') {
+        location['url'] = locationUrl;
+        Location.create(location, callback);
+    }
 };
 
 module.exports.getLocation = (locationId, callback) => {

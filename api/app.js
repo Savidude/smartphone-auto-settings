@@ -7,6 +7,7 @@ var fs = require('fs');
 var https = require('https');
 var path = require('path');
 
+app.use(cors());
 app.use(bodyParser.json());
 
 User = require('./models/user');
@@ -133,6 +134,7 @@ app.post('/api/location', (req, res) => {
     var locationData = req.body;
     var location = locationData['location'];
     Location.addLocation(location, (err, location) => {
+        // console.log('addLocation: ' + JSON.stringify(location, null, 2))
         if (err) {
             throw err;
         }
@@ -160,13 +162,9 @@ app.get('/api/location/:id', (req, res) => {
     });
 });
 
-
-
-
 var hosting = jsonContent.hosting;
 
 if (hosting === 'local') {
-    app.use(cors());
     const httpsOptions = {
         cert: fs.readFileSync(path.join('ssl/server.crt')),
         key: fs.readFileSync(path.join('ssl/server.key'))
