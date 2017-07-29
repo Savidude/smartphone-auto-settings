@@ -13,6 +13,8 @@
         <!-- Add to homescreen for Safari on iOS -->
         <meta name="apple-mobile-web-app-capable" content="yes">
 
+        <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+
         <script src="bower_components/webcomponentsjs/webcomponents-lite.js"></script>
         <link rel="import" href="src/header-element.html">
         <link rel="import" href="bower_components/paper-button/paper-button.html">
@@ -65,6 +67,9 @@
             #battery-value {
                 text-align: center;
                 color: var(--paper-grey-600);
+            }
+            .hidden-alert {
+                display:none;
             }
         </style>
     </head>
@@ -226,6 +231,13 @@
         </div>
         <header-element title="Create Event"></header-element>
 
+        <div class="container hidden-alert">
+            <div class="alert alert-success">
+                <strong>Success!</strong> Event has been created! Your event will be executed the next time this location
+                has been visited.
+            </div>
+        </div>
+
         <script>
             function displayBatteryLevel() {
                 var batteryLevel = document.getElementById("battery-slider").value;
@@ -238,6 +250,7 @@
 //            }
         </script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
         <script src="js/events.js"></script>
     </body>
 </html>

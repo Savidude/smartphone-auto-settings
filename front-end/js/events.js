@@ -10,6 +10,7 @@ document.querySelector('#cancel-battery').addEventListener('click', function (e)
 });
 
 $( document ).ready(function() {
+
     //Getting the userID from localStorage
     var localStorage = window['localStorage'];
     var uid = localStorage.getItem('uid');
@@ -245,6 +246,8 @@ function addEvent(uid, event) {
             url: eventEndpoint,
             data: JSON.stringify(eventData),
             success: function (result) {
+                $(".container").fadeOut("Slow");
+                $(".hidden-alert").fadeIn("Slow");
                 console.log(JSON.stringify(result, null, 2));
             }
         });
