@@ -49,12 +49,14 @@ function executeEvent(uid) {
                 success: function (result) {
                     if (result.length != 0) {
                         $.getScript('/js/eventProcessor/conditions.js', function () {
-                            var isValid = validateConditions(result);
-                            if (isValid) {
-                                $('.pass').fadeIn('slow');
-                            } else {
-                                $('.fail').fadeIn('slow');
-                            }
+                            validateConditions(result).then(function (result) {
+                                console.log('event index: ' + result)
+                                if (result === -1) {
+                                    $('.fail').fadeIn('slow');
+                                } else {
+                                    $('.pass').fadeIn('slow');
+                                }
+                            })
                         });
                     } else {
                         addUserLocation(data, uid, locationId);
