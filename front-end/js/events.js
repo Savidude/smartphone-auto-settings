@@ -1,4 +1,13 @@
 var loc_id;
+var batteryConfirmed = false;
+
+document.querySelector('#confirm-battery').addEventListener('click', function (e) {
+    batteryConfirmed = true;
+});
+
+document.querySelector('#cancel-battery').addEventListener('click', function (e) {
+    batteryConfirmed = false;
+});
 
 $( document ).ready(function() {
     //Getting the userID from localStorage
@@ -82,7 +91,7 @@ document.querySelector('#create').addEventListener('click', function (e) {
     //Getting action data
     var airplaneModeAction = getAirplanemodeAction();
     var mediaPlayerAction = getMediaPlayerAction();
-    var brightnessAction = getBrightnessAction();
+    // var brightnessAction = getBrightnessAction();
     var timeoutAction = getTimeoutAction();
     var screenRotationAction = getScreenRotationAction();
 
@@ -90,7 +99,7 @@ document.querySelector('#create').addEventListener('click', function (e) {
     var actions = {};
     actions['airplaneMode'] = airplaneModeAction;
     actions['media'] = mediaPlayerAction;
-    actions['brightness'] = brightnessAction;
+    // actions['brightness'] = brightnessAction;
     actions['timeout'] = timeoutAction;
     actions['rotation'] = screenRotationAction;
 
@@ -108,7 +117,14 @@ document.querySelector('#create').addEventListener('click', function (e) {
     //Getting the userID from localStorage
     var localStorage = window['localStorage'];
     var uid = localStorage.getItem('uid');
-    addEvent(uid, event);
+
+    if (JSON.stringify(conditions) === '{}') {
+        alert('No conditions selected.');
+    } else if (JSON.stringify(actions) === '{}'){
+        alert('No actions selected.');
+    }else {
+        addEvent(uid, event);
+    }
 });
 
 function getAirplanemodeCondition() {
@@ -122,14 +138,16 @@ function getAirplanemodeCondition() {
 }
 
 function getBatteryCondition() {
-    var item = document.querySelector('#battery-list').selectedItem;
-    var passingCondition = item.getAttribute('value');
-    var batteryLevel = document.getElementById("battery-slider").value;
+    if (batteryConfirmed) {
+        var item = document.querySelector('#battery-list').selectedItem;
+        var passingCondition = item.getAttribute('value');
+        var batteryLevel = document.getElementById("battery-slider").value;
 
-    var conditionData = {};
-    conditionData['passingCondition'] = passingCondition;
-    conditionData['batteryLevel'] = batteryLevel;
-    return conditionData;
+        var conditionData = {};
+        conditionData['passingCondition'] = passingCondition;
+        conditionData['batteryLevel'] = batteryLevel;
+        return conditionData;
+    }
 }
 
 function getChargingStatusCondition() {
@@ -150,7 +168,6 @@ function getDaysOfWeekCondition() {
             checkedDays.push(days[i].value);
         }
     }
-    console.log('days length: ' + checkedDays.length);
     if (checkedDays.length > 0) {
         return checkedDays;
     }
@@ -186,10 +203,10 @@ function getMediaPlayerAction() {
     }
 }
 
-function getBrightnessAction() {
-    var brightnessLevel = document.getElementById("brightness-slider").value;
-    return brightnessLevel;
-}
+// function getBrightnessAction() {
+//     var brightnessLevel = document.getElementById("brightness-slider").value;
+//     return brightnessLevel;
+// }
 
 function getTimeoutAction() {
     var timeoutAction = document.getElementsByName('timeout-action');
