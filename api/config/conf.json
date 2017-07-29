@@ -1,5 +1,5 @@
 {
-  "mongoDBUrl":"mongodb://admin:admin@ds127443.mlab.com:27443/smartphone-auto-settings",
-  "frontEndUrl":"https://www.google.com",
-  "hosting":"remote"
+  "mongoDBUrl":"mongodb://localhost/smartphone-auto-settings",
+  "frontEndUrl":"https://localhost:8000",
+  "hosting":"local"
 }

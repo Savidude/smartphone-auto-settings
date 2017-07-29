@@ -31,7 +31,7 @@ function getToken(handleData) {
                 handleData(result);
             },
             error: function (error) {
-                console.log(error);
+                console.log(JSON.stringify(error, null, 2));
             }
         });
     });
