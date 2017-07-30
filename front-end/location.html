@@ -12,6 +12,8 @@
     <link rel="import" href="bower_components/iron-icons/iron-icons.html">
     <link rel="import" href="bower_components/paper-button/paper-button.html">
     <link rel="import" href="bower_components/paper-card/paper-card.html">
+    <link rel="import" href="bower_components/google-map/google-map.html">
+    <link rel="import" href="bower_components/google-map/google-map-marker.html">
 
     <style>
         body {
@@ -63,6 +65,10 @@
             margin-right: 6px;
             width: 95%;
         }
+        google-map {
+            height: 300px;
+            margin-top: 12px;
+        }
     </style>
 </head>
 
@@ -100,6 +106,7 @@
                     <div class="card-header">
                         Geolocation Data
                     </div>
+
                     <br>
                     <p class="card-message">Latitude: <span id="geo-latitude"></span></p>
                     <p class="card-message">Longitude: <span id="geo-longitude"></span></p>
@@ -110,6 +117,10 @@
                     <p class="card-message">Speed: <span id="geo-speed"></span></p>
                 </div>
             </paper-card>
+
+            <google-map id="geo-map" fit-to-markers api-key="AIzaSyDbbn8wY3tpqHh0WkKysubo3WMWDst1cvg">
+                <google-map-marker id="geo-marker"></google-map-marker>
+            </google-map>
         </div>
     </div>
 

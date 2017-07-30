@@ -32,4 +32,10 @@ function displayGeolocationData(location) {
     document.getElementById('geo-altitude').innerHTML = location.coords.altitude + ' meters';
     document.getElementById('geo-altitude-accuracy').innerHTML = location.coords.altitudeAccuracy + ' meters';
     document.getElementById('geo-speed').innerHTML = location.coords.speed + ' km/h';
+
+    document.getElementById('geo-map').setAttribute('latitude', location.coords.latitude);
+    document.getElementById('geo-map').setAttribute('longitude', location.coords.longitude);
+
+    document.getElementById('geo-marker').setAttribute('latitude', location.coords.latitude);
+    document.getElementById('geo-marker').setAttribute('longitude', location.coords.longitude);
 }
