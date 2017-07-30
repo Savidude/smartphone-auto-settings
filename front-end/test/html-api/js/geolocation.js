@@ -10,6 +10,7 @@ function appendLocation(location, verb) {
 if ('geolocation' in navigator) {
     document.getElementById('askButton').addEventListener('click', function() {
         navigator.geolocation.getCurrentPosition(function(location) {
+            console.log(location);
             appendLocation(location, 'fetched');
         });
         navigator.geolocation.watchPosition(appendLocation);

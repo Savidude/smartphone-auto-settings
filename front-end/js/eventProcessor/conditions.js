@@ -3,7 +3,6 @@ function validateConditions(events) {
         for (var i = 0; i < events.length; i++) {
             var conditionPromises = [];
             var conditions = events[i].conditions;
-            console.log(JSON.stringify(conditions, null, 2));
 
             for (var j = 0; j < Object.keys(conditions).length; j++) {
                 var conditionKey = Object.keys(conditions)[j];

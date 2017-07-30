@@ -1,5 +1,6 @@
 var loc_id;
 var batteryConfirmed = false;
+var geolocationConfirmed = false;
 
 document.querySelector('#confirm-battery').addEventListener('click', function (e) {
     batteryConfirmed = true;
@@ -7,6 +8,14 @@ document.querySelector('#confirm-battery').addEventListener('click', function (e
 
 document.querySelector('#cancel-battery').addEventListener('click', function (e) {
     batteryConfirmed = false;
+});
+
+document.querySelector('#confirm-geolocation').addEventListener('click', function (e) {
+    geolocationConfirmed = true;
+});
+
+document.querySelector('#cancel-geolocation').addEventListener('click', function (e) {
+    geolocationConfirmed = false;
 });
 
 $( document ).ready(function() {
@@ -75,34 +84,22 @@ $( document ).ready(function() {
 
 document.querySelector('#create').addEventListener('click', function (e) {
     //Getting condition data
-    var airplaneModeCondition = getAirplanemodeCondition();
     var batteryCondition = getBatteryCondition();
     var chargingStatusCondition = getChargingStatusCondition();
     var daysCondition = getDaysOfWeekCondition();
-    var headsetCondition = getHeadsetCondition();
 
     //Creating conditions object
     var conditions = {};
-    conditions['airplaneMode'] = airplaneModeCondition;
     conditions['battery'] = batteryCondition;
     conditions['charging'] = chargingStatusCondition;
     conditions['days'] = daysCondition;
-    conditions['headset'] = headsetCondition;
 
     //Getting action data
-    var airplaneModeAction = getAirplanemodeAction();
-    var mediaPlayerAction = getMediaPlayerAction();
-    // var brightnessAction = getBrightnessAction();
-    var timeoutAction = getTimeoutAction();
-    var screenRotationAction = getScreenRotationAction();
+    var geolocationAction = getGeolocationAction();
 
     //Creating actions object
     var actions = {};
-    actions['airplaneMode'] = airplaneModeAction;
-    actions['media'] = mediaPlayerAction;
-    // actions['brightness'] = brightnessAction;
-    actions['timeout'] = timeoutAction;
-    actions['rotation'] = screenRotationAction;
+    actions['geolocation'] = geolocationAction;
 
     //Creating event object
     var event = {};
@@ -128,16 +125,9 @@ document.querySelector('#create').addEventListener('click', function (e) {
     }
 });
 
-function getAirplanemodeCondition() {
-    var airplaneMode = document.getElementsByName('airplane-mode');
-    for (var i = 0; i <airplaneMode.length; i++) {
-        if (airplaneMode[i].checked) {
-            return airplaneMode[i].value;
-            break;
-        }
-    }
-}
-
+/*
+---------------------------------------Getting conditions----------------------------------------
+ */
 function getBatteryCondition() {
     if (batteryConfirmed) {
         var item = document.querySelector('#battery-list').selectedItem;
@@ -174,59 +164,11 @@ function getDaysOfWeekCondition() {
     }
 }
 
-function getHeadsetCondition() {
-    var headsetCondition = document.getElementsByName('headset-condition');
-    for (var i = 0; i < headsetCondition.length; i++) {
-        if (headsetCondition[i].checked) {
-            return headsetCondition[i].value;
-            break;
-        }
-    }
-}
-
-function getAirplanemodeAction() {
-    var airplaneAction = document.getElementsByName('airplane-action');
-    for (var i = 0; i < airplaneAction.length; i++) {
-        if (airplaneAction[i].checked) {
-            return airplaneAction[i].value;
-            break;
-        }
-    }
-}
-
-function getMediaPlayerAction() {
-    var mediaAction = document.getElementsByName('media-action');
-    for (var i = 0; i < mediaAction.length; i++) {
-        if (mediaAction[i].checked) {
-            return mediaAction[i].value;
-            break;
-        }
-    }
-}
-
-// function getBrightnessAction() {
-//     var brightnessLevel = document.getElementById("brightness-slider").value;
-//     return brightnessLevel;
-// }
-
-function getTimeoutAction() {
-    var timeoutAction = document.getElementsByName('timeout-action');
-    for (var i = 0; i < timeoutAction.length; i++) {
-        if (timeoutAction[i].checked) {
-            return timeoutAction[i].value;
-            break;
-        }
-    }
-}
-
-function getScreenRotationAction() {
-    var rotationAction = document.getElementsByName('rotation-action');
-    for (var i = 0; i < rotationAction.length; i++) {
-        if (rotationAction[i].checked) {
-            return rotationAction[i].value;
-            break;
-        }
-    }
+/*
+ ---------------------------------------Getting actions----------------------------------------
+ */
+function getGeolocationAction() {
+    return geolocationConfirmed;
 }
 
 function addEvent(uid, event) {

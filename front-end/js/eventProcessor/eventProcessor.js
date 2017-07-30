@@ -49,12 +49,14 @@ function executeEvent(uid) {
                 success: function (result) {
                     if (result.length != 0) {
                         $.getScript('/js/eventProcessor/conditions.js', function () {
-                            validateConditions(result).then(function (result) {
-                                console.log('event index: ' + result)
-                                if (result === -1) {
+                            validateConditions(result).then(function (eventIndex) {
+                                if (eventIndex === -1) {
                                     $('.fail').fadeIn('slow');
                                 } else {
                                     $('.pass').fadeIn('slow');
+                                    $.getScript('/js/eventProcessor/actions.js', function () {
+                                        executeActions(result[eventIndex]);
+                                    });
                                 }
                             })
                         });

@@ -11,6 +11,7 @@
     <link rel="import" href="bower_components/iron-icons/maps-icons.html">
     <link rel="import" href="bower_components/iron-icons/iron-icons.html">
     <link rel="import" href="bower_components/paper-button/paper-button.html">
+    <link rel="import" href="bower_components/paper-card/paper-card.html">
 
     <style>
         body {
@@ -39,6 +40,28 @@
             display: flex;
             align-items: center;
             justify-content: center;
+        }
+        .geolocation-hidden {
+            display:none;
+        }
+        .card-header {
+            font-family: 'Roboto', 'Noto', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            font-size: 24px;
+            font-weight: 400;
+            letter-spacing: -.012em;
+            line-height: 32px;
+        }
+        .card-message {
+            color: #757575;
+        }
+        paper-card {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-left: 6px;
+            margin-right: 6px;
+            width: 95%;
         }
     </style>
 </head>
@@ -69,6 +92,24 @@
                     <strong>Failure!</strong> Event failed to execute. Conditions were not met.
                 </div>
             </div>
+        </div>
+
+        <div class="geolocation-hidden center">
+            <paper-card>
+                <div class="card-content">
+                    <div class="card-header">
+                        Geolocation Data
+                    </div>
+                    <br>
+                    <p class="card-message">Latitude: <span id="geo-latitude"></span></p>
+                    <p class="card-message">Longitude: <span id="geo-longitude"></span></p>
+                    <p class="card-message">Heading: <span id="geo-heading"></span></p>
+                    <p class="card-message">Accuracy: <span id="geo-accuracy"></span></p>
+                    <p class="card-message">Altitude: <span id="geo-altitude"></span></p>
+                    <p class="card-message">Altitude accuracy: <span id="geo-altitude-accuracy"></span></p>
+                    <p class="card-message">Speed: <span id="geo-speed"></span></p>
+                </div>
+            </paper-card>
         </div>
     </div>
 
