@@ -1,0 +1,15 @@
+body {
+    margin: 0;
+}
+card-element {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 6px;
+    margin-right: 6px;
+    margin-bottom: 12px;
+    margin-top: 12px;
+}
+.cards {
+    margin-top: 80px;
+}

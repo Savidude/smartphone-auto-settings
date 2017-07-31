@@ -1,0 +1,60 @@
+body {
+    margin: 0;
+}
+.container {
+    margin-top: 80px;
+}
+.location-name {
+    font-size: 24px;
+}
+.message {
+    color: #757575;
+}
+.location-create {
+    margin-top: 12px;
+    margin-right: 12px;
+    margin-left: 12px;
+}
+.event-status {
+    margin-top: 12px;
+    margin-right: 12px;
+    margin-left: 12px;
+}
+.center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.geolocation-hidden {
+    display:none;
+}
+.video-hidden {
+    display:none;
+}
+.card-header {
+    font-family: 'Roboto', 'Noto', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    font-size: 24px;
+    font-weight: 400;
+    letter-spacing: -.012em;
+    line-height: 32px;
+}
+.card-message {
+    color: #757575;
+}
+paper-card {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 6px;
+    margin-right: 6px;
+    width: 95%;
+}
+google-map {
+    height: 300px;
+    margin-top: 12px;
+}
+video {
+    height:180px;
+    width: 240px;
+}

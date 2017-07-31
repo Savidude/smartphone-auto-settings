@@ -1,6 +1,5 @@
 function executeActions(event) {
     var action = event.actions;
-    console.log(JSON.stringify(action, null, 2));
     for (var i = 0; i < Object.keys(action).length; i++) {
         var actionKey = Object.keys(action)[i];
         switch (actionKey) {
