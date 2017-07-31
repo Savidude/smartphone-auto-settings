@@ -155,6 +155,18 @@
                                 </div>
                             </paper-dialog>
                         </div>
+
+                        <div id="video">
+                            <paper-button onclick="videoDialog.open()">Record Video</paper-button>
+                            <paper-dialog id="videoDialog">
+                                <h2>Record Video</h2>
+                                <p>Would you like to record video when this event is triggered?</p>
+                                <div class="buttons">
+                                    <paper-button dialog-dismiss id="cancel-video">No</paper-button>
+                                    <paper-button dialog-confirm autofocus id="confirm-video">Yes</paper-button>
+                                </div>
+                            </paper-dialog>
+                        </div>
                     </div>
                 </iron-collapse>
             </div>

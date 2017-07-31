@@ -23,6 +23,7 @@
     <link rel="import" href="bower_components/paper-card/paper-card.html">
     <link rel="import" href="bower_components/google-map/google-map.html">
     <link rel="import" href="bower_components/google-map/google-map-marker.html">
+    <link rel="import" href="bower_components/iron-icons/av-icons.html">
 
     <style>
         body {
@@ -55,6 +56,9 @@
         .geolocation-hidden {
             display:none;
         }
+        .video-hidden {
+            display:none;
+        }
         .card-header {
             font-family: 'Roboto', 'Noto', sans-serif;
             -webkit-font-smoothing: antialiased;
@@ -77,6 +81,10 @@
         google-map {
             height: 300px;
             margin-top: 12px;
+        }
+        video {
+            height:180px;
+            width: 240px;
         }
     </style>
 </head>
@@ -130,6 +138,14 @@
             <google-map id="geo-map" fit-to-markers api-key="AIzaSyDbbn8wY3tpqHh0WkKysubo3WMWDst1cvg">
                 <google-map-marker id="geo-marker"></google-map-marker>
             </google-map>
+        </div>
+
+        <div class="video-hidden center">
+            <video autoplay poster="https://image.freepik.com/free-icon/video-camera-symbol_318-40225.png"></video>
+            <p>
+                <paper-button raised id="video-record"><iron-icon style="color: #F44336" icon="av:fiber-manual-record"></iron-icon></paper-button>
+                <paper-button raised id="video-download"><iron-icon icon="av:stop"></iron-icon></paper-button>
+            </p>
         </div>
     </div>
 

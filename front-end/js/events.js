@@ -1,6 +1,7 @@
 var loc_id;
 var batteryConfirmed = false;
 var geolocationConfirmed = false;
+var videoConfirmed = false;
 
 document.querySelector('#confirm-battery').addEventListener('click', function (e) {
     batteryConfirmed = true;
@@ -18,8 +19,15 @@ document.querySelector('#cancel-geolocation').addEventListener('click', function
     geolocationConfirmed = false;
 });
 
-$( document ).ready(function() {
+document.querySelector('#confirm-video').addEventListener('click', function (e) {
+    videoConfirmed = true;
+});
 
+document.querySelector('#cancel-video').addEventListener('click', function (e) {
+    videoConfirmed = false;
+});
+
+$( document ).ready(function() {
     //Getting the userID from localStorage
     var localStorage = window['localStorage'];
     var uid = localStorage.getItem('uid');
@@ -96,10 +104,12 @@ document.querySelector('#create').addEventListener('click', function (e) {
 
     //Getting action data
     var geolocationAction = getGeolocationAction();
+    var videoAction = getVideoAction();
 
     //Creating actions object
     var actions = {};
     actions['geolocation'] = geolocationAction;
+    actions['video'] = videoAction;
 
     //Creating event object
     var event = {};
@@ -169,6 +179,10 @@ function getDaysOfWeekCondition() {
  */
 function getGeolocationAction() {
     return geolocationConfirmed;
+}
+
+function getVideoAction() {
+    return videoConfirmed;
 }
 
 function addEvent(uid, event) {
