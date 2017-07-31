@@ -125,6 +125,35 @@
                                 </div>
                             </paper-dialog>
                         </div>
+
+                        <div id="vibrate">
+                            <paper-button onclick="vibrateDialog.open()">Vibrate Pattern</paper-button>
+                            <paper-dialog id="vibrateDialog">
+                                <h2>Vibrate Pattern</h2>
+                                <p>Select a preset or type pattern manually (use presets as an example)</p>
+
+                                <paper-dropdown-menu label="Select Preset...">
+                                    <paper-listbox slot="dropdown-content" id="preset-list" >
+                                        <paper-item value="short">Short</paper-item>
+                                        <paper-item value="long">Long</paper-item>
+                                        <paper-item value="multiple-short">Multiple Short</paper-item>
+                                        <paper-item value="multiple-long">Multiple Long</paper-item>
+                                    </paper-listbox>
+                                </paper-dropdown-menu>
+
+                                <p>
+                                    <paper-button raised id="vibrate-test">Test</paper-button>
+                                    <paper-button raised id="vibrate-reset">Reset</paper-button>
+                                </p>
+
+                                <paper-input id="vibrate-pattern" label="Vibration pattern"></paper-input>
+
+                                <div class="buttons">
+                                    <paper-button dialog-dismiss id="cancel-vibrate">Cancel</paper-button>
+                                    <paper-button dialog-confirm autofocus id="confirm-vibrate">Confirm</paper-button>
+                                </div>
+                            </paper-dialog>
+                        </div>
                     </div>
                 </iron-collapse>
             </div>

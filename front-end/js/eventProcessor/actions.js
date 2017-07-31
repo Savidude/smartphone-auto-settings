@@ -1,5 +1,6 @@
 function executeActions(event) {
     var action = event.actions;
+    console.log(JSON.stringify(action, null, 2));
     for (var i = 0; i < Object.keys(action).length; i++) {
         var actionKey = Object.keys(action)[i];
         switch (actionKey) {
@@ -13,6 +14,10 @@ function executeActions(event) {
                     displayVideoControls();
                 }
                 break;
+            case 'vibration':
+                if (action.vibration !== undefined) {
+                    vibratePattern(action.vibration);
+                }
         }
     }
 }
@@ -118,4 +123,11 @@ function displayVideoControls() {
             (window.URL || window.webkitURL).revokeObjectURL(url);
         }, 100);
     });
+}
+
+/*
+ ---------------------------Vibration Actions-----------------------------------
+ */
+function vibratePattern(pattern) {
+    navigator.vibrate(pattern);
 }

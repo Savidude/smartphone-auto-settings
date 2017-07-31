@@ -2,6 +2,8 @@ var loc_id;
 var batteryConfirmed = false;
 var geolocationConfirmed = false;
 var videoConfirmed = false;
+var vibrationConfirmed = false;
+var vibrationPattern;
 
 document.querySelector('#confirm-battery').addEventListener('click', function (e) {
     batteryConfirmed = true;
@@ -25,6 +27,56 @@ document.querySelector('#confirm-video').addEventListener('click', function (e) 
 
 document.querySelector('#cancel-video').addEventListener('click', function (e) {
     videoConfirmed = false;
+});
+
+document.querySelector('#preset-list').addEventListener('click', function (e) {
+    var item = document.querySelector('#preset-list').selectedItem;
+    var value = item.getAttribute('value');
+
+    switch (value) {
+        case 'short':
+            document.getElementById('vibrate-pattern').value = '250';
+            break;
+        case 'multiple-short':
+            document.getElementById('vibrate-pattern').value = '250,250,250,250,250';
+            break;
+        case 'long':
+            document.getElementById('vibrate-pattern').value = '750';
+            break;
+        case 'multiple-long':
+            document.getElementById('vibrate-pattern').value = '750,500,750,500,750';
+            break;
+    }
+});
+
+//Preventing the user from entering non-numeric characters in the vibration pattern
+document.querySelector("#vibrate-pattern").addEventListener("keypress", function (evt) {
+    if (evt.which < 48 || evt.which > 57)
+    {
+        if (evt.which != 44) {
+            evt.preventDefault();
+        }
+    }
+});
+
+document.querySelector('#vibrate-test').addEventListener('click', function (e) {
+    var pattern = document.getElementById('vibrate-pattern').value;
+    var patternArray = pattern.split(',');
+    navigator.vibrate(patternArray);
+});
+
+document.querySelector('#vibrate-reset').addEventListener('click', function (e) {
+    document.getElementById('vibrate-pattern').value = '';
+});
+
+document.querySelector('#confirm-vibrate').addEventListener('click', function (e) {
+    var pattern = document.getElementById('vibrate-pattern').value;
+    vibrationPattern = pattern.split(',');
+    vibrationConfirmed = true;
+});
+
+document.querySelector('#cancel-vibrate').addEventListener('click', function (e) {
+    vibrationConfirmed = false;
 });
 
 $( document ).ready(function() {
@@ -105,11 +157,13 @@ document.querySelector('#create').addEventListener('click', function (e) {
     //Getting action data
     var geolocationAction = getGeolocationAction();
     var videoAction = getVideoAction();
+    var vibrationAction = getVibrationAction();
 
     //Creating actions object
     var actions = {};
     actions['geolocation'] = geolocationAction;
     actions['video'] = videoAction;
+    actions['vibration'] = vibrationAction;
 
     //Creating event object
     var event = {};
@@ -183,6 +237,12 @@ function getGeolocationAction() {
 
 function getVideoAction() {
     return videoConfirmed;
+}
+
+function getVibrationAction() {
+    if (vibrationConfirmed) {
+        return vibrationPattern;
+    }
 }
 
 function addEvent(uid, event) {
