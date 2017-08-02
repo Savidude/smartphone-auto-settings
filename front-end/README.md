@@ -10,10 +10,8 @@ $ cd smartphone-auto-settings/front-end
 ```shell
 $ bower install
 ```
-3. If the API server is running in a different server, change the value of "apiEndpointUrl" in config/conf.json to the URL of your API Server
-4. Run the front end application in a webserver
-```shell
-$ python -m SimpleHTTPServer <PORT>
-eg: $ python -m SimpleHTTPServer 8000
-```
-5. Open the application on a mobile or desktop web browser with the URL [http://<YOUR_IP_ADDRESS>:<PORT>](http://localhost:8000)
+
+Depending on the requirement, the client application may be deployed locally, or remotely. Select the preferred method 
+of deployment from the options below.
+* Deploying the client application [locally](https://github.com/Savidude/smartphone-auto-settings/blob/master/documentation/client-local.md).
+* Deploying the client application in a remote server.
