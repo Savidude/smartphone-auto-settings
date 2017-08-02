@@ -22,20 +22,8 @@ $ mongo
 ```
 
 ### Setting up the API Server
-1. Navigate to the smartphone-auto-settings/api directory
-```shell
-$ cd smartphone-auto-settings/api
-```
-2. Install the required node modules
-```shell
-$ npm install
-```
-3. If the MongoDB database is not running on the same server as the API server, change the value of "mongoDBUrl" in config/conf.json to the corresponding mongodb instance.
-4. Run the API Server
-```shell
-$ node app
-```
-5. If successfully executed, the following message should be displayed
-```shell
-$ CORS-enabled web server listening on port 3000
-```
+The API Server for the Smartphone Auto Settings Project is created using Node.js along with MongoDB as the database.
+
+It may be required to set up the API server locally, or in a remote server. You may select the preferred method of deployment.
+* Running API server in a [local instance](https://github.com/Savidude/smartphone-auto-settings/blob/master/documentation/api-local.md).
+* Deploying API server in [remote hosting](https://github.com/Savidude/smartphone-auto-settings/blob/master/documentation/api-remote.md).
