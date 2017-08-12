@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Events - Smartphone Auto Settings</title>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+
+    <!-- Add to homescreen for Chrome on Android. Fallback for manifest.json -->
+    <meta name="mobile-web-app-capable" content="yes">
+
+    <!-- Add to homescreen for Safari on iOS -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+
+    <script src="bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+    <link rel="import" href="bower_components/app-layout/app-layout.html">
+    <link rel="import" href="bower_components/paper-card/paper-card.html">
+
+    <link rel="stylesheet" type="text/css" href="lib/font-awesome-4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="css/events.css">
+</head>
+<body background="images/event-wallpaper.jpg">
+    <app-drawer-layout>
+        <app-header-layout>
+            <app-header slot="header">
+                <app-toolbar>
+                    <i class="fa fa-arrow-left" aria-hidden="true" id="back"></i>
+                    <div class="title" main-title>Events</div>
+                </app-toolbar>
+            </app-header>
+        </app-header-layout>
+    </app-drawer-layout>
+
+    <!--<paper-card>-->
+        <!--<div class="card-content">-->
+            <!--<div class="card-header">-->
+                <!--<i class="fa fa-calendar" aria-hidden="true"></i>-->
+                <!--<span>Event Name</span>-->
+            <!--</div>-->
+
+            <!--<div class="card-description">-->
+                <!--<i class="fa fa-map-marker" aria-hidden="true"></i>-->
+                <!--<span>Location Name</span>-->
+            <!--</div>-->
+        <!--</div>-->
+        <!--<div class="card-info">-->
+            <!--<div class="conditions">-->
+                <!--<span>CONDITIONS</span>-->
+                <!--<table>-->
+                    <!--<tr>-->
+                        <!--<td class="event-item">-->
+                            <!--<i class="fa fa-battery-three-quarters fa-2x" aria-hidden="true"></i><br>-->
+                            <!--<span>Above 50%</span>-->
+                        <!--</td>-->
+
+                        <!--<td class="event-item">-->
+                            <!--<i class="fa fa-plug fa-2x" aria-hidden="true"></i><br>-->
+                            <!--<span>Discharging</span>-->
+                        <!--</td>-->
+
+                        <!--<td class="event-item">-->
+                            <!--<i class="fa fa-calendar fa-2x" aria-hidden="true"></i><br>-->
+                            <!--<span>Monday, Saturday</span>-->
+                        <!--</td>-->
+                    <!--</tr>-->
+                <!--</table>-->
+            <!--</div>-->
+
+            <!--<div class="actions">-->
+                <!--<span>ACTIONS</span>-->
+                <!--<table>-->
+                    <!--<tr>-->
+                        <!--<td class="event-item">-->
+                            <!--<i class="fa fa-map-marker fa-2x" aria-hidden="true"></i><br>-->
+                            <!--<span>Geolocation Data</span>-->
+                        <!--</td>-->
+
+                        <!--<td class="event-item">-->
+                            <!--<i class="fa fa-video-camera fa-2x" aria-hidden="true"></i><br>-->
+                            <!--<span>Record video</span>-->
+                        <!--</td>-->
+
+                        <!--<td class="event-item">-->
+                            <!--<i class="fa fa-mobile fa-2x" aria-hidden="true"></i><br>-->
+                            <!--<span>Vibrate</span>-->
+                        <!--</td>-->
+                    <!--</tr>-->
+                <!--</table>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</paper-card>-->
+
+    <div id="container">
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="js/events.js"></script>
+</body>
+</html>

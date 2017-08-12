@@ -1,11 +1,23 @@
 body {
     margin: 0;
+    background-color: #455A64;
+    color: white;
 }
-.container {
-    margin-top: 80px;
+.title {
+    text-align: center;
+    font-size: 30px;
+    font-family: 'Roboto', Helvetica, sans-serif;
+}
+.content {
+    text-align: center;
+}
+paper-input {
+    margin-left: 12px;
+    margin-right: 12px;
 }
 #create {
     width: 95%;
+    background-color: #607D8B;
 }
 .hidden {
     display:none;
@@ -17,9 +29,10 @@ body {
     font-weight: 400;
     letter-spacing: -.012em;
     line-height: 32px;
+    color: #37474F;
 }
 .card-message {
-    color: #757575;
+    color: #263238;
 }
 paper-card {
     display: flex;
@@ -27,6 +40,7 @@ paper-card {
     justify-content: center;
     margin-left: 6px;
     margin-right: 6px;
+    opacity: 0.7;
 }
 .copy {
     margin-left: 12px;

@@ -1,15 +1,34 @@
 body {
     margin: 0;
+    margin-left: -5px;
 }
-card-element {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-left: 6px;
-    margin-right: 6px;
-    margin-bottom: 12px;
-    margin-top: 12px;
+
+app-toolbar {
+    background-color: #1E88E5;
+    font-family: 'Roboto', Helvetica, sans-serif;
+    color: white;
+    --app-toolbar-font-size: 24px;
 }
-.cards {
-    margin-top: 80px;
+
+app-drawer-layout:not([narrow]) [drawer-toggle] {
+    display: none;
+}
+
+iron-icon {
+    margin-right: 12px;
+}
+
+paper-button {
+    width: 100%;
+    height: 50vh;
+}
+
+paper-button.amber {
+    background-color: #FFC107;
+    color: white;
+}
+
+paper-button.red {
+    background-color: #F44336;
+    color: white;
 }

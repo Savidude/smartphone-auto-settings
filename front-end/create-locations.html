@@ -2,7 +2,7 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <title>Smartphone Auto Settings</title>
+        <title>Create new location - Smartphone Auto Settings</title>
 
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
@@ -20,16 +20,30 @@
         <link rel="import" href="bower_components/iron-icons/iron-icons.html">
         <link rel="import" href="bower_components/paper-toast/paper-toast.html">
 
+        <link rel="stylesheet" type="text/css" href="lib/font-awesome-4.7.0/css/font-awesome.min.css">
         <link rel="stylesheet" type="text/css" href="css/create-locations.css">
     </head>
 
     <body>
         <div class="container">
+            <app-drawer-layout>
+                <app-header-layout>
+                    <app-header slot="header">
+                        <app-toolbar>
+                            <i class="fa fa-arrow-left" aria-hidden="true" id="back"></i>
+                            <div class="title" main-title>Create new location</div>
+                        </app-toolbar>
+                    </app-header>
+                </app-header-layout>
+            </app-drawer-layout>
+
+            <div class="content">
+                <i class="fa fa-map-marker fa-5x" aria-hidden="true"></i>
+            </div>
+
             <paper-input id="location-name" label="Location name"></paper-input>
             <paper-button raised id="create">Create location</paper-button>
         </div>
-
-        <header-element title="Create Location"></header-element>
 
         <div class="hidden">
             <paper-card>
@@ -39,7 +53,7 @@
                     </div>
                     <p class="card-message">Set your beacon to broadcast the following URL</p>
                     <div class="broadcast-url">
-                        <paper-input id="url" readonly></paper-input>
+                        <paper-input id="url"></paper-input>
                         <paper-button raised onclick="toast0.open()" id="copy">
                             <iron-icon class="copy" icon="content-copy"></iron-icon>
                             <span>Copy to clipboard</span>
@@ -52,6 +66,6 @@
         </div>
 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-        <script src="js/locations.js"></script>
+        <script src="js/create-locations.js"></script>
     </body>
 </html>

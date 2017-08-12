@@ -1,3 +1,12 @@
+document.querySelector('#locations-btn').addEventListener('click', function (e) {
+    location.href = 'locations.html'
+});
+
+document.querySelector('#events-btn').addEventListener('click', function (e) {
+    console.log('-------------')
+    location.href = 'events.html'
+});
+
 $(document).ready(function() {
     //Checking if the browser supports LocalStorage
     if (storageAvailable('localStorage')) {

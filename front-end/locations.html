@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Locations - Smartphone Auto Settings</title>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+
+    <!-- Add to homescreen for Chrome on Android. Fallback for manifest.json -->
+    <meta name="mobile-web-app-capable" content="yes">
+
+    <!-- Add to homescreen for Safari on iOS -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+
+    <script src="bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+    <link rel="import" href="bower_components/app-layout/app-layout.html">
+    <link rel="import" href="bower_components/paper-card/paper-card.html">
+    <link rel="import" href="bower_components/paper-button/paper-button.html">
+    <link rel="import" href="bower_components/paper-input/paper-input.html">
+    <link rel="import" href="bower_components/iron-icons/iron-icons.html">
+    <link rel="import" href="bower_components/paper-toast/paper-toast.html">
+
+    <link rel="stylesheet" type="text/css" href="lib/font-awesome-4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="css/locations.css">
+</head>
+
+<body background="images/location-wallpaper.jpg">
+    <app-drawer-layout>
+        <app-header-layout>
+            <app-header slot="header">
+                <app-toolbar>
+                    <i class="fa fa-arrow-left" aria-hidden="true" id="back"></i>
+                    <div class="title" main-title>Locations</div>
+                    <i class="fa fa-plus" aria-hidden="true" id="create-locations"></i>
+                </app-toolbar>
+            </app-header>
+        </app-header-layout>
+    </app-drawer-layout>
+
+    <div id="container">
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="js/locations.js"></script>
+</body>
+</html>

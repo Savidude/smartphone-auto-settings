@@ -89,6 +89,22 @@ app.post('/api/user/location', (req, res) => {
     });
 });
 
+//Getting a specific user's set of events
+app.get('/api/user/:id/events', (req, res) => {
+    var userId = req.params.id;
+    User.getUser(userId, (err, user) => {
+        if (err) {
+            throw err;
+        }
+        try {
+            var events = user['events'];
+            res.json(events);
+        } catch (err) {
+            res.json(undefined); //TODO: send appropriate response
+        }
+    });
+});
+
 /*
  ----------------------------Event API------------------------------
  */
@@ -96,22 +112,25 @@ app.post('/api/user/location', (req, res) => {
 app.post('/api/event', (req, res) => {
     //Adding new event to the database
     var eventData = req.body;
-    Event.addEvent(eventData, (err, event) => {
-        if (err) {
-            throw err;
-        }
-
-        //Adding the event to the user's set of events
-        var userId = eventData['uid'];
-        var eventId = event['id'];
-        User.addEvent(userId, eventId, {}, (err, user) => {
+    if (eventData['uid'] !== null) {
+        Event.addEvent(eventData, (err, event) => {
             if (err) {
-                throw er
-var path = require('path');r;
+                throw err;
             }
-            res.json(event);
+
+            //Adding the event to the user's set of events
+            var userId = eventData['uid'];
+            var eventId = event['id'];
+            User.addEvent(userId, eventId, {}, (err, user) => {
+                if (err) {
+                    throw err;
+                }
+                res.json(event);
+            });
         });
-    });
+    } else {
+        throw 'Invalid UID';
+    }
 });
 
 //Getting user specific events based on location
@@ -121,6 +140,17 @@ app.get('/api/event/user/:uid/location/:lid', (req, res) => {
 
     Event.getEvents(userId, locationId, (events) => {
         res.json(events)
+    });
+});
+
+//Getting event data from the ID provided
+app.get('/api/event/:id', (req, res) => {
+    var eventId = req.params.id;
+    Event.getEvent(eventId, (err, event) => {
+        if (err) {
+            throw err;
+        }
+        res.json(event);
     });
 });
 

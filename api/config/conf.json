@@ -1,5 +1,5 @@
 {
   "mongoDBUrl":"mongodb://localhost/smartphone-auto-settings",
-  "frontEndUrl":"https://localhost:8000",
+  "frontEndUrl":"https://192.168.42.32:9443",
   "hosting":"local"
 }

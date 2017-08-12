@@ -1,0 +1,67 @@
+app-toolbar {
+    color: white;
+}
+
+.title {
+    text-align: center;
+    font-size: 30px;
+    font-family: 'Roboto', Helvetica, sans-serif;
+}
+
+i {
+    margin-left: 6px;
+    margin-right: 6px;
+}
+
+paper-card {
+    margin-bottom: 12px;
+    width: 100%;
+    opacity: 0.8;
+}
+
+.card-header {
+    text-align: center;
+    font-size: 24px;
+    font-family: 'Roboto', Helvetica, sans-serif;
+    color: #424242;
+}
+
+.event-item {
+    text-align: center;
+}
+
+.event-item > i {
+    color: #0091EA;
+}
+
+td {
+    padding-left: 6px;
+    padding-right: 6px;
+}
+
+tr {
+    width: 100%;
+}
+
+.card-description {
+    margin-top: 12px;
+    color: #616161;
+    font-size: 24px;
+}
+
+.conditions {
+    text-align: center;
+}
+
+.conditions > span {
+    font-size: 24px;
+}
+
+.actions {
+    text-align: center;
+    margin-top: 12px;
+}
+
+.actions > span {
+    font-size: 24px;
+}

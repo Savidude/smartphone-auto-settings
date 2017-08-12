@@ -2,7 +2,7 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <title>Smartphone Auto Settings</title>
+        <title>Create new event - Smartphone Auto Settings</title>
 
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
@@ -16,6 +16,8 @@
         <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
 
         <script src="bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+        <link rel="import" href="bower_components/app-layout/app-layout.html">
+
         <link rel="import" href="src/header-element.html">
         <link rel="import" href="bower_components/paper-button/paper-button.html">
         <link rel="import" href="bower_components/iron-collapse/iron-collapse.html">
@@ -29,68 +31,94 @@
         <link rel="import" href="bower_components/paper-checkbox/paper-checkbox.html">
         <link rel="import" href="bower_components/paper-input/paper-input.html">
 
+        <link rel="stylesheet" type="text/css" href="lib/font-awesome-4.7.0/css/font-awesome.min.css">
         <link rel="stylesheet" type="text/css" href="css/create-events.css">
     </head>
 
-    <body unresolved>
+    <body>
         <div class="container">
+            <app-drawer-layout>
+                <app-header-layout>
+                    <app-header slot="header">
+                        <app-toolbar>
+                            <i class="fa fa-arrow-left" aria-hidden="true" id="back"></i>
+                            <div class="title" main-title>Create new event</div>
+                        </app-toolbar>
+                    </app-header>
+                </app-header-layout>
+            </app-drawer-layout>
+
             <div class="name">
-                <paper-input id="event-name" label="Event name"></paper-input>
+                <paper-input class="event-input" id="event-name" label="Event name"></paper-input>
             </div>
 
             <div class="location">
-                <paper-input id="location" label="Location ID"></paper-input>
+                <paper-input id="location" label="Location Name"></paper-input>
             </div>
 
             <div class="event-data conditions">
                 <paper-button raised class="event-button" onclick="conditions.toggle()">
                     <div>Conditions</div>
-                    <iron-icon class="event-icon" icon="add-circle-outline"></iron-icon>
                 </paper-button>
                 <iron-collapse id="conditions">
                     <div class="collapse-content">
-                        <div id="battery">
-                            <paper-button onclick="batteryDialog.open()">Battery level</paper-button>
-                            <paper-dialog id="batteryDialog">
-                                <h2>Battery level</h2>
-                                <paper-dropdown-menu>
-                                    <paper-listbox slot="dropdown-content" id="battery-list" selected="0">
-                                        <paper-item value="below">Battery level is below</paper-item>
-                                        <paper-item value="above">Battery level is above</paper-item>
-                                    </paper-listbox>
-                                </paper-dropdown-menu>
-                                <div id="battery-value">50</div>
-                                <paper-slider id="battery-slider" min="0" max="100" value="50" onchange="displayBatteryLevel()"></paper-slider>
+                        <table>
+                            <tr>
+                                <div id="battery">
+                                    <td class="event-item" onclick="batteryDialog.open()">
+                                        <i class="fa fa-battery-three-quarters fa-2x" aria-hidden="true"></i><br>
+                                        <span>Battery level</span>
+                                    </td>
+                                    <paper-dialog id="batteryDialog">
+                                        <h2>Battery level</h2>
+                                        <paper-dropdown-menu>
+                                            <paper-listbox slot="dropdown-content" id="battery-list" selected="0">
+                                                <paper-item value="below">Battery level is below</paper-item>
+                                                <paper-item value="above">Battery level is above</paper-item>
+                                            </paper-listbox>
+                                        </paper-dropdown-menu>
+                                        <div id="battery-value">50</div>
+                                        <paper-slider id="battery-slider" min="0" max="100" value="50" onchange="displayBatteryLevel()"></paper-slider>
 
-                                <div class="buttons">
-                                    <paper-button dialog-dismiss id="cancel-battery">Cancel</paper-button>
-                                    <paper-button dialog-confirm autofocus id="confirm-battery">Confirm</paper-button>
+                                        <div class="buttons">
+                                            <paper-button dialog-dismiss id="cancel-battery">Cancel</paper-button>
+                                            <paper-button dialog-confirm autofocus id="confirm-battery">Confirm</paper-button>
+                                        </div>
+                                    </paper-dialog>
                                 </div>
-                            </paper-dialog>
-                        </div>
 
-                        <div id="charging-mode">
-                            <paper-button onclick="charging.toggle()">Charging status</paper-button>
-                            <iron-collapse id="charging">
-                                <paper-radio-group allow-empty-selection>
-                                    <paper-radio-button name="charging-state" value="charging">Charging</paper-radio-button>
-                                    <paper-radio-button name="charging-state" value="discharging">Using battery</paper-radio-button>
-                                </paper-radio-group>
-                            </iron-collapse>
-                        </div>
+                                <div id="charging-mode">
+                                    <td class="event-item" onclick="charging.toggle()">
+                                        <i class="fa fa-plug fa-2x" aria-hidden="true"></i><br>
+                                        <span>Charging status</span>
+                                    </td>
+                                    <!--<paper-button onclick="charging.toggle()">Charging status</paper-button>-->
+                                    <iron-collapse id="charging">
+                                        <paper-radio-group allow-empty-selection>
+                                            <paper-radio-button name="charging-state" value="charging">Charging</paper-radio-button>
+                                            <paper-radio-button name="charging-state" value="discharging">Using battery</paper-radio-button>
+                                        </paper-radio-group>
+                                    </iron-collapse>
+                                </div>
 
-                        <div id="day-of-week">
-                            <paper-button onclick="day.toggle()">Day of week</paper-button>
-                            <iron-collapse id="day">
-                                <paper-checkbox name="day-check" value="0">Monday</paper-checkbox> <br>
-                                <paper-checkbox name="day-check" value="1">Tuesday</paper-checkbox> <br>
-                                <paper-checkbox name="day-check" value="2">Wednesday</paper-checkbox> <br>
-                                <paper-checkbox name="day-check" value="3">Thursday</paper-checkbox> <br>
-                                <paper-checkbox name="day-check" value="4">Friday</paper-checkbox> <br>
-                                <paper-checkbox name="day-check" value="5">Saturday</paper-checkbox> <br>
-                                <paper-checkbox name="day-check" value="6">Sunday</paper-checkbox>
-                            </iron-collapse>
-                        </div>
+                                <div id="day-of-week">
+                                    <td class="event-item" onclick="day.toggle()">
+                                        <i class="fa fa-calendar fa-2x" aria-hidden="true"></i><br>
+                                        <span>Day of week</span>
+                                    </td>
+                                    <!--<paper-button onclick="day.toggle()">Day of week</paper-button>-->
+                                    <iron-collapse id="day">
+                                        <paper-checkbox name="day-check" value="0">Monday</paper-checkbox> <br>
+                                        <paper-checkbox name="day-check" value="1">Tuesday</paper-checkbox> <br>
+                                        <paper-checkbox name="day-check" value="2">Wednesday</paper-checkbox> <br>
+                                        <paper-checkbox name="day-check" value="3">Thursday</paper-checkbox> <br>
+                                        <paper-checkbox name="day-check" value="4">Friday</paper-checkbox> <br>
+                                        <paper-checkbox name="day-check" value="5">Saturday</paper-checkbox> <br>
+                                        <paper-checkbox name="day-check" value="6">Sunday</paper-checkbox>
+                                    </iron-collapse>
+                                </div>
+                            </tr>
+                        </table>
                     </div>
                 </iron-collapse>
             </div>
@@ -98,69 +126,83 @@
             <div class="event-data actions">
                 <paper-button raised class="event-button" onclick="actions.toggle()">
                     <div>Actions</div>
-                    <iron-icon class="event-icon" icon="add-circle-outline"></iron-icon>
                 </paper-button>
                 <iron-collapse id="actions">
                     <div class="collapse-content">
-                        <div id="geolocation">
-                            <paper-button onclick="geolocationDialog.open()">Display Geolocation Data</paper-button>
-                            <paper-dialog id="geolocationDialog">
-                                <h2>Display Geolocation Data</h2>
-                                <p>Would you like to view your current location data when this event is triggered?</p>
-                                <div class="buttons">
-                                    <paper-button dialog-dismiss id="cancel-geolocation">No</paper-button>
-                                    <paper-button dialog-confirm autofocus id="confirm-geolocation">Yes</paper-button>
+                        <table>
+                            <tr>
+                                <div id="geolocation">
+                                    <td class="event-item" onclick="geolocationDialog.open()">
+                                        <i class="fa fa-map-marker fa-2x" aria-hidden="true"></i><br>
+                                        <span>Geolocation</span>
+                                    </td>
+                                    <!--<paper-button onclick="geolocationDialog.open()">Display Geolocation Data</paper-button>-->
+                                    <paper-dialog id="geolocationDialog">
+                                        <h2>Display Geolocation Data</h2>
+                                        <p>Would you like to view your current location data when this event is triggered?</p>
+                                        <div class="buttons">
+                                            <paper-button dialog-dismiss id="cancel-geolocation">No</paper-button>
+                                            <paper-button dialog-confirm autofocus id="confirm-geolocation">Yes</paper-button>
+                                        </div>
+                                    </paper-dialog>
                                 </div>
-                            </paper-dialog>
-                        </div>
 
-                        <div id="video">
-                            <paper-button onclick="videoDialog.open()">Record Video</paper-button>
-                            <paper-dialog id="videoDialog">
-                                <h2>Record Video</h2>
-                                <p>Would you like to record video when this event is triggered?</p>
-                                <div class="buttons">
-                                    <paper-button dialog-dismiss id="cancel-video">No</paper-button>
-                                    <paper-button dialog-confirm autofocus id="confirm-video">Yes</paper-button>
+                                <div id="video">
+                                    <td class="event-item" onclick="videoDialog.open()">
+                                        <i class="fa fa-video-camera fa-2x" aria-hidden="true"></i><br>
+                                        <span>Record video</span>
+                                    </td>
+                                    <!--<paper-button onclick="videoDialog.open()">Record Video</paper-button>-->
+                                    <paper-dialog id="videoDialog">
+                                        <h2>Record Video</h2>
+                                        <p>Would you like to record video when this event is triggered?</p>
+                                        <div class="buttons">
+                                            <paper-button dialog-dismiss id="cancel-video">No</paper-button>
+                                            <paper-button dialog-confirm autofocus id="confirm-video">Yes</paper-button>
+                                        </div>
+                                    </paper-dialog>
                                 </div>
-                            </paper-dialog>
-                        </div>
 
-                        <div id="vibrate">
-                            <paper-button onclick="vibrateDialog.open()">Vibrate Pattern</paper-button>
-                            <paper-dialog id="vibrateDialog">
-                                <h2>Vibrate Pattern</h2>
-                                <p>Select a preset or type pattern manually (use presets as an example)</p>
+                                <div id="vibrate">
+                                    <td class="event-item" onclick="vibrateDialog.open()">
+                                        <i class="fa fa-mobile fa-2x" aria-hidden="true"></i><br>
+                                        <span>Vibrate</span>
+                                    </td>
+                                    <!--<paper-button onclick="vibrateDialog.open()">Vibrate Pattern</paper-button>-->
+                                    <paper-dialog id="vibrateDialog">
+                                        <h2>Vibrate Pattern</h2>
+                                        <p>Select a preset or type pattern manually (use presets as an example)</p>
 
-                                <paper-dropdown-menu label="Select Preset...">
-                                    <paper-listbox slot="dropdown-content" id="preset-list" >
-                                        <paper-item value="short">Short</paper-item>
-                                        <paper-item value="long">Long</paper-item>
-                                        <paper-item value="multiple-short">Multiple Short</paper-item>
-                                        <paper-item value="multiple-long">Multiple Long</paper-item>
-                                    </paper-listbox>
-                                </paper-dropdown-menu>
+                                        <paper-dropdown-menu label="Select Preset...">
+                                            <paper-listbox slot="dropdown-content" id="preset-list" >
+                                                <paper-item value="short">Short</paper-item>
+                                                <paper-item value="long">Long</paper-item>
+                                                <paper-item value="multiple-short">Multiple Short</paper-item>
+                                                <paper-item value="multiple-long">Multiple Long</paper-item>
+                                            </paper-listbox>
+                                        </paper-dropdown-menu>
 
-                                <p>
-                                    <paper-button raised id="vibrate-test">Test</paper-button>
-                                    <paper-button raised id="vibrate-reset">Reset</paper-button>
-                                </p>
+                                        <p>
+                                            <paper-button raised id="vibrate-test">Test</paper-button>
+                                            <paper-button raised id="vibrate-reset">Reset</paper-button>
+                                        </p>
 
-                                <paper-input id="vibrate-pattern" label="Vibration pattern"></paper-input>
+                                        <paper-input id="vibrate-pattern" label="Vibration pattern"></paper-input>
 
-                                <div class="buttons">
-                                    <paper-button dialog-dismiss id="cancel-vibrate">Cancel</paper-button>
-                                    <paper-button dialog-confirm autofocus id="confirm-vibrate">Confirm</paper-button>
+                                        <div class="buttons">
+                                            <paper-button dialog-dismiss id="cancel-vibrate">Cancel</paper-button>
+                                            <paper-button dialog-confirm autofocus id="confirm-vibrate">Confirm</paper-button>
+                                        </div>
+                                    </paper-dialog>
                                 </div>
-                            </paper-dialog>
-                        </div>
+                            </tr>
+                        </table>
                     </div>
                 </iron-collapse>
             </div>
 
             <paper-button raised id="create">Create Event</paper-button>
         </div>
-        <header-element title="Create Event"></header-element>
 
         <div class="container hidden-alert">
             <div class="alert alert-success">
@@ -177,6 +219,6 @@
         </script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
         <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-        <script src="js/events.js"></script>
+        <script src="js/create-events.js"></script>
     </body>
 </html>

@@ -1,4 +1,4 @@
 {
-  "apiEndpointUrl":"https://localhost:3000",
-  "clientEndpointUrl":"https://192.168.43.128:9443"
+  "apiEndpointUrl":"https://192.168.42.32:3000",
+  "clientEndpointUrl":"https://192.168.42.32:9443"
 }

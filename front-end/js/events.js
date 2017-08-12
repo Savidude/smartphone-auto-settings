@@ -1,132 +1,32 @@
-var loc_id;
-var batteryConfirmed = false;
-var geolocationConfirmed = false;
-var videoConfirmed = false;
-var vibrationConfirmed = false;
-var vibrationPattern;
-
-document.querySelector('#confirm-battery').addEventListener('click', function (e) {
-    batteryConfirmed = true;
+document.querySelector('#back').addEventListener('click', function (e) {
+    location.href = '/';
 });
 
-document.querySelector('#cancel-battery').addEventListener('click', function (e) {
-    batteryConfirmed = false;
-});
+$(document).ready(function() {
+    //Checking if the browser supports LocalStorage
+    if (storageAvailable('localStorage')) {
+        var localStorage = window['localStorage'];
+        var uid = localStorage.getItem('uid');
 
-document.querySelector('#confirm-geolocation').addEventListener('click', function (e) {
-    geolocationConfirmed = true;
-});
-
-document.querySelector('#cancel-geolocation').addEventListener('click', function (e) {
-    geolocationConfirmed = false;
-});
-
-document.querySelector('#confirm-video').addEventListener('click', function (e) {
-    videoConfirmed = true;
-});
-
-document.querySelector('#cancel-video').addEventListener('click', function (e) {
-    videoConfirmed = false;
-});
-
-document.querySelector('#preset-list').addEventListener('click', function (e) {
-    var item = document.querySelector('#preset-list').selectedItem;
-    var value = item.getAttribute('value');
-
-    switch (value) {
-        case 'short':
-            document.getElementById('vibrate-pattern').value = '250';
-            break;
-        case 'multiple-short':
-            document.getElementById('vibrate-pattern').value = '250,250,250,250,250';
-            break;
-        case 'long':
-            document.getElementById('vibrate-pattern').value = '750';
-            break;
-        case 'multiple-long':
-            document.getElementById('vibrate-pattern').value = '750,500,750,500,750';
-            break;
-    }
-});
-
-//Preventing the user from entering non-numeric characters in the vibration pattern
-document.querySelector("#vibrate-pattern").addEventListener("keypress", function (evt) {
-    if (evt.which < 48 || evt.which > 57)
-    {
-        if (evt.which != 44) {
-            evt.preventDefault();
-        }
-    }
-});
-
-document.querySelector('#vibrate-test').addEventListener('click', function (e) {
-    var pattern = document.getElementById('vibrate-pattern').value;
-    var patternArray = pattern.split(',');
-    navigator.vibrate(patternArray);
-});
-
-document.querySelector('#vibrate-reset').addEventListener('click', function (e) {
-    document.getElementById('vibrate-pattern').value = '';
-});
-
-document.querySelector('#confirm-vibrate').addEventListener('click', function (e) {
-    var pattern = document.getElementById('vibrate-pattern').value;
-    vibrationPattern = pattern.split(',');
-    vibrationConfirmed = true;
-});
-
-document.querySelector('#cancel-vibrate').addEventListener('click', function (e) {
-    vibrationConfirmed = false;
-});
-
-$( document ).ready(function() {
-    //Getting the userID from localStorage
-    var localStorage = window['localStorage'];
-    var uid = localStorage.getItem('uid');
-
-    //Getting location data from URL
-    var eventUrl = window.location.href;
-    let url = new URL(eventUrl);
-    let params = new URLSearchParams(url.search.slice(1));
-
-    var locationId = params.get('locationId');
-    var locationName = params.get('locationName');
-
-    if (locationId != undefined && locationName != undefined) {
-        document.getElementById('location').value = locationName;
-        document.getElementById('location').setAttribute('readonly', 'true');
-        document.getElementById('location').setAttribute('label', 'Location');
-        loc_id = locationId;
-    } else {
-        //Getting the list of locations visited by the user
         $.getJSON('../config/conf.json', function (data) {
             var apiEndpointUrl = data.apiEndpointUrl;
-            var userDataEndpoint = apiEndpointUrl + '/api/user/' + uid + '/locations';
+            var userDataEndpoint = apiEndpointUrl + '/api/user/' + uid + '/events';
 
             $.ajax({
                 url: userDataEndpoint,
                 type: 'GET',
                 contentType: 'application/json',
                 success: function (IDs) {
-                    // var locationList = document.getElementById('location-list');
-
                     IDs.forEach(function (id) {
-                        var locationId = id['id'];
-                        var locationDataEndpoint = apiEndpointUrl + '/api/location/' + locationId;
+                        var eventId = id['id'];
+                        var locationDataEndpoint = apiEndpointUrl + '/api/event/' + eventId;
                         $.ajax({
                             url: locationDataEndpoint,
                             type: 'GET',
                             contentType: 'application/json',
-                            success: function (location) {
-                                var locationName = location['name'];
-                                console.log(locationId + ' - ' + locationName)
-
-                                var locationItem = document.createElement('paper-item');
-                                locationItem.setAttribute('value', locationId);
-                                var text = document.createElement('text');
-                                text.textContent = locationName;
-                                locationItem.appendChild(text);
-                                // locationList.appendChild(locationItem);
+                            success: function (eventData) {
+                                console.log(JSON.stringify(eventData, null, 2));
+                                createEventCard(eventData.event);
                             },
                             error: function (error) {
                                 console.log(error);
@@ -139,133 +39,176 @@ $( document ).ready(function() {
                 }
             });
         });
+
+        //If there is no user ID in LocalStorage, get a token from the API
+        if (!uid) {
+            getToken(function (result) {
+                uid = result['id'];
+                localStorage.setItem('uid', uid);
+            });
+        }
+    }
+    else {
+        alert('Your browser does not support LocalStorage');
     }
 });
 
-document.querySelector('#create').addEventListener('click', function (e) {
-    //Getting condition data
-    var batteryCondition = getBatteryCondition();
-    var chargingStatusCondition = getChargingStatusCondition();
-    var daysCondition = getDaysOfWeekCondition();
+function createEventCard(event) {
+    var card = document.createElement('paper-card');
 
-    //Creating conditions object
-    var conditions = {};
-    conditions['battery'] = batteryCondition;
-    conditions['charging'] = chargingStatusCondition;
-    conditions['days'] = daysCondition;
+    var content = document.createElement('div');
+    content.className = 'card-content';
+    card.appendChild(content);
 
-    //Getting action data
-    var geolocationAction = getGeolocationAction();
-    var videoAction = getVideoAction();
-    var vibrationAction = getVibrationAction();
+    var header = document.createElement('div');
+    header.className = 'card-header';
+    header.innerHTML = '<i class="fa fa-calendar" aria-hidden="true"></i>' +
+                        '<span>' + event.name + '</span>';
+    content.appendChild(header);
 
-    //Creating actions object
-    var actions = {};
-    actions['geolocation'] = geolocationAction;
-    actions['video'] = videoAction;
-    actions['vibration'] = vibrationAction;
+    var description = document.createElement('div');
+    description.className = 'card-description';
+    description.innerHTML = '<i class="fa fa-map-marker" aria-hidden="true"></i>' +
+                            '<span>Location Name</span>'; //TODO: Get actual location name
+    content.appendChild(description);
 
-    //Creating event object
-    var event = {};
-    event['name'] = document.getElementById('event-name').value;
-    if (loc_id == undefined) {
-        event['location'] = document.getElementById('location').value;
-    } else {
-        event['location'] = loc_id;
-    }
-    event['conditions'] = conditions;
-    event['actions'] = actions;
+    var info = document.createElement('div');
+    info.className = 'card-info';
+    content.appendChild(info);
 
-    //Getting the userID from localStorage
-    var localStorage = window['localStorage'];
-    var uid = localStorage.getItem('uid');
+        var conditions = document.createElement('div');
+        conditions.className = 'conditions';
+        info.appendChild(conditions);
 
-    if (JSON.stringify(conditions) === '{}') {
-        alert('No conditions selected.');
-    } else if (JSON.stringify(actions) === '{}'){
-        alert('No actions selected.');
-    }else {
-        addEvent(uid, event);
-    }
-});
+            var conditionsLabel = document.createElement('span');
+            conditionsLabel.innerHTML = 'CONDITIONS';
+            conditions.appendChild(conditionsLabel);
 
-/*
----------------------------------------Getting conditions----------------------------------------
- */
-function getBatteryCondition() {
-    if (batteryConfirmed) {
-        var item = document.querySelector('#battery-list').selectedItem;
-        var passingCondition = item.getAttribute('value');
-        var batteryLevel = document.getElementById("battery-slider").value;
+            var conditionsTable = document.createElement('table');
+            conditions.appendChild(conditionsTable);
+            var conditionsRow = document.createElement('tr');
+            conditionsTable.appendChild(conditionsRow);
 
-        var conditionData = {};
-        conditionData['passingCondition'] = passingCondition;
-        conditionData['batteryLevel'] = batteryLevel;
-        return conditionData;
-    }
-}
+                var conditionsData = event.conditions;
+                for (var i = 0; i < Object.keys(conditionsData).length; i++) {
+                    var conditionTableData = document.createElement('td');
+                    conditionTableData.className = 'event-item';
 
-function getChargingStatusCondition() {
-    var chargingState = document.getElementsByName('charging-state');
-    for (var i = 0; i < chargingState.length; i++) {
-        if (chargingState[i].checked) {
-            return chargingState[i].value;
-            break;
-        }
-    }
-}
+                    var conditionKey = Object.keys(conditionsData)[i];
+                    switch (conditionKey) {
+                        case 'days':
+                            if (conditionsData.days.length > 0) {
+                                var days = '';
+                                conditionsData.days.forEach(function (value) {
+                                    switch (value) {
+                                        case 0: days += 'Monday '; break;
+                                        case 1: days += 'Tuesday '; break;
+                                        case 2: days += 'Wednesday '; break;
+                                        case 3: days += 'Thursday '; break;
+                                        case 4: days += 'Friday '; break;
+                                        case 5: days += 'Saturday '; break;
+                                        case 6: days += 'Sunday '; break;
+                                    }
+                                });
+                                conditionTableData.innerHTML = '<i class="fa fa-calendar fa-2x" aria-hidden="true"></i><br>' +
+                                                                '<span>' + days + '</span>';
+                                conditionsRow.appendChild(conditionTableData);
+                            }
+                            break;
+                        case 'battery':
+                            if (conditionsData.battery !== undefined) {
+                                var passingCondition = conditionsData.battery.passingCondition;
+                                var level = conditionsData.battery.batteryLevel;
+                                var value;
+                                switch (passingCondition) {
+                                    case 'above':
+                                        value = 'Above ' + level + '%';
+                                        break;
+                                    case 'below':
+                                        value = 'Below ' + level + '%';
+                                        break;
+                                }
+                                conditionTableData.innerHTML = '<i class="fa fa-battery-three-quarters fa-2x" aria-hidden="true"></i><br>' +
+                                                                '<span>' + value + '</span>';
+                                conditionsRow.appendChild(conditionTableData);
+                            }
+                            break;
+                        case 'charging':
+                            if (conditionsData.charging !== undefined) {
+                                var chargingStatus = conditionsData.charging;
+                                conditionTableData.innerHTML = '<i class="fa fa-plug fa-2x" aria-hidden="true"></i><br><br>' +
+                                    '<span>' + chargingStatus + '</span>';
+                                conditionsRow.appendChild(conditionTableData);
+                            }
+                            break;
+                    }
+                }
 
-function getDaysOfWeekCondition() {
-    var days = document.getElementsByName('day-check');
-    var checkedDays = [];
-    for (var i = 0; i < days.length; i++) {
-        if (days[i].checked) {
-            checkedDays.push(days[i].value);
-        }
-    }
-    if (checkedDays.length > 0) {
-        return checkedDays;
-    }
-}
+        var actions = document.createElement('div');
+        actions.className = 'conditions';
+        info.appendChild(actions);
 
-/*
- ---------------------------------------Getting actions----------------------------------------
- */
-function getGeolocationAction() {
-    return geolocationConfirmed;
-}
+            var actionsLabel = document.createElement('span');
+            actions.innerHTML = 'ACTIONS';
+            actions.appendChild(actionsLabel);
 
-function getVideoAction() {
-    return videoConfirmed;
-}
+            var actionsTable = document.createElement('table');
+            actions.appendChild(actionsTable);
+            var actionsRow = document.createElement('tr');
+            actionsTable.appendChild(actionsRow);
 
-function getVibrationAction() {
-    if (vibrationConfirmed) {
-        return vibrationPattern;
-    }
-}
+            var actionsData = event.actions;
+            for (var i = 0; i < Object.keys(actionsData).length; i++) {
+                var actionTableData = document.createElement('td');
+                actionTableData.className = 'event-item';
 
-function addEvent(uid, event) {
-    var eventData = {};
-    eventData['uid'] = uid;
-    eventData['event'] = event;
-
-    //Get the API endpoint from conf.json
-    $.getJSON('../config/conf.json', function (data) {
-        var apiEndpointUrl = data.apiEndpointUrl;
-        var eventEndpoint = apiEndpointUrl + '/api/event';
-
-        $.ajax({
-            type: "POST",
-            contentType: 'application/json',
-            dataType: "json",
-            url: eventEndpoint,
-            data: JSON.stringify(eventData),
-            success: function (result) {
-                $(".container").fadeOut("Slow");
-                $(".hidden-alert").fadeIn("Slow");
-                console.log(JSON.stringify(result, null, 2));
+                var actionKey = Object.keys(actionsData)[i];
+                switch (actionKey) {
+                    case 'geolocation':
+                        if (actionsData.geolocation) {
+                            actionTableData.innerHTML = '<i class="fa fa-map-marker fa-2x" aria-hidden="true"></i><br>' +
+                                                        '<span>Geolocation data</span>';
+                            actionsRow.appendChild(actionTableData);
+                        }
+                        break;
+                    case 'video':
+                        if (actionsData.video) {
+                            actionTableData.innerHTML = '<i class="fa fa-video-camera fa-2x" aria-hidden="true"></i><br>' +
+                                '<span>Record video</span>';
+                            actionsRow.appendChild(actionTableData);
+                        }
+                        break;
+                    case 'vibration':
+                        actionTableData.innerHTML = '<i class="fa fa-mobile fa-2x" aria-hidden="true"></i><br>' +
+                            '<span>Vibrate</span>';
+                        actionsRow.appendChild(actionTableData);
+                        break;
+                }
             }
-        });
-    });
+
+    document.getElementById('container').appendChild(card);
+}
+
+function storageAvailable(type) {
+    try {
+        var storage = window[type],
+            x = '__storage_test__';
+        storage.setItem(x, x);
+        storage.removeItem(x);
+        return true;
+    }
+    catch(e) {
+        return e instanceof DOMException && (
+            // everything except Firefox
+            e.code === 22 ||
+            // Firefox
+            e.code === 1014 ||
+            // test name field too, because code might not be present
+            // everything except Firefox
+            e.name === 'QuotaExceededError' ||
+            // Firefox
+            e.name === 'NS_ERROR_DOM_QUOTA_REACHED') &&
+            // acknowledge QuotaExceededError only if there's something already stored
+            storage.length !== 0;
+    }
 }

@@ -1,11 +1,40 @@
+.title {
+    text-align: center;
+    font-size: 30px;
+    font-family: 'Roboto', Helvetica, sans-serif;
+}
+
 body {
     margin: 0;
+    background-color: #455A64;
+    color: white;
 }
+
+.event-item {
+    text-align: center;
+}
+
+.event-item > i {
+    color: #0091EA;
+}
+
+td {
+    padding-left: 6px;
+    padding-right: 6px;
+}
+
+paper-button.event-button {
+    background-color: #607D8B;
+    color: white;
+}
+
+paper-input.event-input {
+    /*background-color: #607D8B;*/
+    color: white;
+}
+
 paper-checkbox {
     font-size: larger;
-}
-.container {
-    margin-top: 80px;
 }
 .collapse-content {
     margin-top: 6px;
@@ -14,6 +43,7 @@ paper-checkbox {
 }
 .event-button {
     width: 95%;
+    font-size: 18px;
 }
 .event-icon {
     margin-left: 200px;
@@ -22,16 +52,7 @@ paper-checkbox {
     margin-top: 12px;
     margin-bottom: 12px;
 }
-.name {
-    margin-left: 12px;
-    margin-right: 12px;
-    margin-bottom: 12px;
-}
-.location {
-    margin-left: 12px;
-    margin-right: 12px;
-    margin-bottom: 12px;
-}
+
 #battery-value {
     text-align: center;
     color: var(--paper-grey-600);

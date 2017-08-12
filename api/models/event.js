@@ -39,3 +39,8 @@ module.exports.getEvents = (userId, locationId, callback) => {
         callback(eventsArray);
     });
 };
+
+module.exports.getEvent = (eventId, callback) => {
+    var query = {id: eventId};
+    Event.findOne(query, callback);
+};
