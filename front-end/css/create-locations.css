@@ -1,6 +1,6 @@
 body {
     margin: 0;
-    background-color: #455A64;
+    background-color: #2962FF;
     color: white;
 }
 .title {
@@ -17,7 +17,7 @@ paper-input {
 }
 #create {
     width: 95%;
-    background-color: #607D8B;
+    background-color: #2196F3;
 }
 .hidden {
     display:none;
@@ -45,4 +45,8 @@ paper-card {
 .copy {
     margin-left: 12px;
     margin-right: 12px;
+}
+
+paper-button > span {
+    color: black;
 }

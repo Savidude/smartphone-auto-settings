@@ -10,9 +10,14 @@ document.querySelector('#create').addEventListener('click', function (e) {
 
 document.querySelector('#copy').addEventListener('click', function (e) {
     var broadcastUrl = document.getElementById('url');
-    broadcastUrl.focus();
-    broadcastUrl.select();
+
+    let t = document.createElement('textarea');
+    document.body.appendChild(t);
+    t.value = broadcastUrl.value;
+    t.focus();
+    t.select();
     document.execCommand('copy');
+    document.body.removeChild(t)
 });
 
 function addLocation(name) {

@@ -32,3 +32,10 @@ paper-button.red {
     background-color: #F44336;
     color: white;
 }
+
+paper-button > span {
+    font-size: 24px;
+    font-weight: bold;
+    margin-top: 140px;
+    margin-left: -85px;
+}

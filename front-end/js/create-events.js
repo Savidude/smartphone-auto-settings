@@ -266,9 +266,10 @@ function addEvent(uid, event) {
             url: eventEndpoint,
             data: JSON.stringify(eventData),
             success: function (result) {
-                $(".container").fadeOut("Slow");
-                $(".hidden-alert").fadeIn("Slow");
-                console.log(JSON.stringify(result, null, 2));
+                // $(".container").fadeOut("Slow");
+                // $(".hidden-alert").fadeIn("Slow");
+                // console.log(JSON.stringify(result, null, 2));
+                location.href = 'events.html';
             }
         });
     });

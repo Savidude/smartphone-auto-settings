@@ -28,8 +28,8 @@
     <link rel="stylesheet" type="text/css" href="css/location.css">
 </head>
 
-<body>
-    <div class="container">
+<body background="images/create-wallpaper.jpg">
+    <div id="container">
         <div class="location-name center">
             <iron-icon icon="maps:place"></iron-icon>
             <span id="location" class="message">Unknown</span>
@@ -88,7 +88,33 @@
         </div>
     </div>
 
-    <header-element></header-element>
+
+
+    <app-drawer-layout>
+        <app-drawer slot="drawer">
+            <paper-item>
+                <iron-icon icon="home"></iron-icon>
+                <div>Home</div>
+            </paper-item>
+            <paper-item>
+                <iron-icon icon="maps:place"></iron-icon>
+                <div>Locations</div>
+            </paper-item>
+            <paper-item>
+                <iron-icon icon="image:flash-on"></iron-icon>
+                <div>Events</div>
+            </paper-item>
+        </app-drawer>
+
+        <app-header-layout>
+            <app-header slot="header">
+                <app-toolbar>
+                    <paper-icon-button icon="menu" drawer-toggle></paper-icon-button>
+                    <div main-title>Smartphone Auto Settings</div>
+                </app-toolbar>
+            </app-header>
+        </app-header-layout>
+    </app-drawer-layout>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>

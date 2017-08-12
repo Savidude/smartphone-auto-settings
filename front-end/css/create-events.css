@@ -7,7 +7,7 @@
 body {
     margin: 0;
     background-color: #455A64;
-    color: white;
+    /*color: white;*/
 }
 
 .event-item {
@@ -24,7 +24,7 @@ td {
 }
 
 paper-button.event-button {
-    background-color: #607D8B;
+    background-color: #0D47A1;
     color: white;
 }
 
@@ -59,4 +59,19 @@ paper-checkbox {
 }
 .hidden-alert {
     display:none;
+}
+
+paper-card {
+    background-color: #00AA8D;
+    color: black;
+}
+
+#create {
+    width: 50%;
+    background-color: #2196F3;
+}
+
+.event-data > iron-collapse {
+    background-color: white;
+    opacity: 0.6;
 }

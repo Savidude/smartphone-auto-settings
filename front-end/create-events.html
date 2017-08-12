@@ -35,18 +35,19 @@
         <link rel="stylesheet" type="text/css" href="css/create-events.css">
     </head>
 
-    <body>
+    <body background="images/create-wallpaper.jpg">
+        <app-drawer-layout>
+            <app-header-layout>
+                <app-header slot="header">
+                    <app-toolbar>
+                        <i class="fa fa-arrow-left" aria-hidden="true" id="back"></i>
+                        <div class="title" main-title>Create new event</div>
+                    </app-toolbar>
+                </app-header>
+            </app-header-layout>
+        </app-drawer-layout>
+
         <div class="container">
-            <app-drawer-layout>
-                <app-header-layout>
-                    <app-header slot="header">
-                        <app-toolbar>
-                            <i class="fa fa-arrow-left" aria-hidden="true" id="back"></i>
-                            <div class="title" main-title>Create new event</div>
-                        </app-toolbar>
-                    </app-header>
-                </app-header-layout>
-            </app-drawer-layout>
 
             <div class="name">
                 <paper-input class="event-input" id="event-name" label="Event name"></paper-input>
@@ -60,6 +61,24 @@
                 <paper-button raised class="event-button" onclick="conditions.toggle()">
                     <div>Conditions</div>
                 </paper-button>
+
+                <paper-dialog id="batteryDialog">
+                    <h2>Battery level</h2>
+                    <paper-dropdown-menu>
+                        <paper-listbox slot="dropdown-content" id="battery-list" selected="0">
+                            <paper-item value="below">Battery level is below</paper-item>
+                            <paper-item value="above">Battery level is above</paper-item>
+                        </paper-listbox>
+                    </paper-dropdown-menu>
+                    <div id="battery-value">50</div>
+                    <paper-slider id="battery-slider" min="0" max="100" value="50" onchange="displayBatteryLevel()"></paper-slider>
+
+                    <div class="buttons">
+                        <paper-button dialog-dismiss id="cancel-battery">Cancel</paper-button>
+                        <paper-button dialog-confirm autofocus id="confirm-battery">Confirm</paper-button>
+                    </div>
+                </paper-dialog>
+
                 <iron-collapse id="conditions">
                     <div class="collapse-content">
                         <table>
@@ -69,22 +88,6 @@
                                         <i class="fa fa-battery-three-quarters fa-2x" aria-hidden="true"></i><br>
                                         <span>Battery level</span>
                                     </td>
-                                    <paper-dialog id="batteryDialog">
-                                        <h2>Battery level</h2>
-                                        <paper-dropdown-menu>
-                                            <paper-listbox slot="dropdown-content" id="battery-list" selected="0">
-                                                <paper-item value="below">Battery level is below</paper-item>
-                                                <paper-item value="above">Battery level is above</paper-item>
-                                            </paper-listbox>
-                                        </paper-dropdown-menu>
-                                        <div id="battery-value">50</div>
-                                        <paper-slider id="battery-slider" min="0" max="100" value="50" onchange="displayBatteryLevel()"></paper-slider>
-
-                                        <div class="buttons">
-                                            <paper-button dialog-dismiss id="cancel-battery">Cancel</paper-button>
-                                            <paper-button dialog-confirm autofocus id="confirm-battery">Confirm</paper-button>
-                                        </div>
-                                    </paper-dialog>
                                 </div>
 
                                 <div id="charging-mode">
@@ -127,6 +130,51 @@
                 <paper-button raised class="event-button" onclick="actions.toggle()">
                     <div>Actions</div>
                 </paper-button>
+
+                <paper-dialog id="geolocationDialog">
+                    <h2>Display Geolocation Data</h2>
+                    <p>Would you like to view your current location data when this event is triggered?</p>
+                    <div class="buttons">
+                        <paper-button dialog-dismiss id="cancel-geolocation">No</paper-button>
+                        <paper-button dialog-confirm autofocus id="confirm-geolocation">Yes</paper-button>
+                    </div>
+                </paper-dialog>
+
+                <paper-dialog id="videoDialog">
+                    <h2>Record Video</h2>
+                    <p>Would you like to record video when this event is triggered?</p>
+                    <div class="buttons">
+                        <paper-button dialog-dismiss id="cancel-video">No</paper-button>
+                        <paper-button dialog-confirm autofocus id="confirm-video">Yes</paper-button>
+                    </div>
+                </paper-dialog>
+
+                <paper-dialog id="vibrateDialog">
+                    <h2>Vibrate Pattern</h2>
+                    <p>Select a preset or type pattern manually (use presets as an example)</p>
+
+                    <paper-dropdown-menu label="Select Preset...">
+                        <paper-listbox slot="dropdown-content" id="preset-list" >
+                            <paper-item value="short">Short</paper-item>
+                            <paper-item value="long">Long</paper-item>
+                            <paper-item value="multiple-short">Multiple Short</paper-item>
+                            <paper-item value="multiple-long">Multiple Long</paper-item>
+                        </paper-listbox>
+                    </paper-dropdown-menu>
+
+                    <p>
+                        <paper-button raised id="vibrate-test">Test</paper-button>
+                        <paper-button raised id="vibrate-reset">Reset</paper-button>
+                    </p>
+
+                    <paper-input id="vibrate-pattern" label="Vibration pattern"></paper-input>
+
+                    <div class="buttons">
+                        <paper-button dialog-dismiss id="cancel-vibrate">Cancel</paper-button>
+                        <paper-button dialog-confirm autofocus id="confirm-vibrate">Confirm</paper-button>
+                    </div>
+                </paper-dialog>
+
                 <iron-collapse id="actions">
                     <div class="collapse-content">
                         <table>
@@ -136,15 +184,6 @@
                                         <i class="fa fa-map-marker fa-2x" aria-hidden="true"></i><br>
                                         <span>Geolocation</span>
                                     </td>
-                                    <!--<paper-button onclick="geolocationDialog.open()">Display Geolocation Data</paper-button>-->
-                                    <paper-dialog id="geolocationDialog">
-                                        <h2>Display Geolocation Data</h2>
-                                        <p>Would you like to view your current location data when this event is triggered?</p>
-                                        <div class="buttons">
-                                            <paper-button dialog-dismiss id="cancel-geolocation">No</paper-button>
-                                            <paper-button dialog-confirm autofocus id="confirm-geolocation">Yes</paper-button>
-                                        </div>
-                                    </paper-dialog>
                                 </div>
 
                                 <div id="video">
@@ -152,15 +191,6 @@
                                         <i class="fa fa-video-camera fa-2x" aria-hidden="true"></i><br>
                                         <span>Record video</span>
                                     </td>
-                                    <!--<paper-button onclick="videoDialog.open()">Record Video</paper-button>-->
-                                    <paper-dialog id="videoDialog">
-                                        <h2>Record Video</h2>
-                                        <p>Would you like to record video when this event is triggered?</p>
-                                        <div class="buttons">
-                                            <paper-button dialog-dismiss id="cancel-video">No</paper-button>
-                                            <paper-button dialog-confirm autofocus id="confirm-video">Yes</paper-button>
-                                        </div>
-                                    </paper-dialog>
                                 </div>
 
                                 <div id="vibrate">
@@ -168,32 +198,6 @@
                                         <i class="fa fa-mobile fa-2x" aria-hidden="true"></i><br>
                                         <span>Vibrate</span>
                                     </td>
-                                    <!--<paper-button onclick="vibrateDialog.open()">Vibrate Pattern</paper-button>-->
-                                    <paper-dialog id="vibrateDialog">
-                                        <h2>Vibrate Pattern</h2>
-                                        <p>Select a preset or type pattern manually (use presets as an example)</p>
-
-                                        <paper-dropdown-menu label="Select Preset...">
-                                            <paper-listbox slot="dropdown-content" id="preset-list" >
-                                                <paper-item value="short">Short</paper-item>
-                                                <paper-item value="long">Long</paper-item>
-                                                <paper-item value="multiple-short">Multiple Short</paper-item>
-                                                <paper-item value="multiple-long">Multiple Long</paper-item>
-                                            </paper-listbox>
-                                        </paper-dropdown-menu>
-
-                                        <p>
-                                            <paper-button raised id="vibrate-test">Test</paper-button>
-                                            <paper-button raised id="vibrate-reset">Reset</paper-button>
-                                        </p>
-
-                                        <paper-input id="vibrate-pattern" label="Vibration pattern"></paper-input>
-
-                                        <div class="buttons">
-                                            <paper-button dialog-dismiss id="cancel-vibrate">Cancel</paper-button>
-                                            <paper-button dialog-confirm autofocus id="confirm-vibrate">Confirm</paper-button>
-                                        </div>
-                                    </paper-dialog>
                                 </div>
                             </tr>
                         </table>
