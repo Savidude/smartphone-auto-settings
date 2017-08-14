@@ -25,6 +25,7 @@
     <link rel="import" href="bower_components/google-map/google-map-marker.html">
     <link rel="import" href="bower_components/iron-icons/av-icons.html">
 
+    <link rel="stylesheet" type="text/css" href="lib/font-awesome-4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="css/location.css">
 
     <link rel="manifest" href="manifest.json">
@@ -82,11 +83,27 @@
         </div>
 
         <div class="video-hidden center">
-            <video autoplay poster="https://image.freepik.com/free-icon/video-camera-symbol_318-40225.png"></video>
+            <video id="record-stream" autoplay poster="https://image.freepik.com/free-icon/video-camera-symbol_318-40225.png"></video>
             <p>
                 <paper-button raised id="video-record"><iron-icon style="color: #F44336" icon="av:fiber-manual-record"></iron-icon></paper-button>
                 <paper-button raised id="video-download"><iron-icon icon="av:stop"></iron-icon></paper-button>
             </p>
+        </div>
+
+        <div class="photo-hidden center">
+            <video id="camera-stream" autoplay poster="https://image.freepik.com/free-icon/video-camera-symbol_318-40225.png"></video>
+            <img id="snap">
+
+            <p id="error-message"></p>
+
+            <div class="controls">
+                <a href="#" id="delete-photo" title="Delete Photo" class="disabled"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                <a href="#" id="take-photo" title="Take Photo"><i class="fa fa-camera" aria-hidden="true"></i></a>
+                <a href="#" id="download-photo" download="photo.png" title="Save Photo" class="disabled"><i class="fa fa-download" aria-hidden="true"></i></a>
+            </div>
+
+            <!-- Hidden canvas element. Used for taking snapshot of video. -->
+            <canvas></canvas>
         </div>
     </div>
 

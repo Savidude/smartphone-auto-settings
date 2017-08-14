@@ -178,6 +178,13 @@ function createEventCard(event) {
                             actionsRow.appendChild(actionTableData);
                         }
                         break;
+                    case 'photo':
+                        if (actionsData.photo) {
+                            actionTableData.innerHTML = '<i class="fa fa-camera fa-2x" aria-hidden="true"></i><br>' +
+                                '<span>Take photo</span>';
+                            actionsRow.appendChild(actionTableData);
+                        }
+                        break;
                     case 'vibration':
                         actionTableData.innerHTML = '<i class="fa fa-mobile fa-2x" aria-hidden="true"></i><br>' +
                             '<span>Vibrate</span>';

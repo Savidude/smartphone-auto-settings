@@ -2,6 +2,7 @@ var loc_id;
 var batteryConfirmed = false;
 var geolocationConfirmed = false;
 var videoConfirmed = false;
+var photoConfirmed = false;
 var vibrationConfirmed = false;
 var vibrationPattern;
 
@@ -17,20 +18,31 @@ document.querySelector('#cancel-battery').addEventListener('click', function (e)
     batteryConfirmed = false;
 });
 
-document.querySelector('#confirm-geolocation').addEventListener('click', function (e) {
-    geolocationConfirmed = true;
+document.querySelector('#geolocation-button').addEventListener('click', function (e) {
+    geolocationConfirmed = !geolocationConfirmed;
+    if (geolocationConfirmed) {
+        document.getElementById('geolocation-button').style.backgroundColor = '#9FA8DA';
+    } else {
+        document.getElementById('geolocation-button').style.backgroundColor = 'white';
+    }
 });
 
-document.querySelector('#cancel-geolocation').addEventListener('click', function (e) {
-    geolocationConfirmed = false;
+document.querySelector('#video-button').addEventListener('click', function (e) {
+    videoConfirmed = !videoConfirmed;
+    if (videoConfirmed) {
+        document.getElementById('video-button').style.backgroundColor = '#9FA8DA';
+    } else {
+        document.getElementById('video-button').style.backgroundColor = 'white';
+    }
 });
 
-document.querySelector('#confirm-video').addEventListener('click', function (e) {
-    videoConfirmed = true;
-});
-
-document.querySelector('#cancel-video').addEventListener('click', function (e) {
-    videoConfirmed = false;
+document.querySelector('#photo-button').addEventListener('click', function (e) {
+    photoConfirmed = !photoConfirmed;
+    if (photoConfirmed) {
+        document.getElementById('photo-button').style.backgroundColor = '#9FA8DA';
+    } else {
+        document.getElementById('photo-button').style.backgroundColor = 'white';
+    }
 });
 
 document.querySelector('#preset-list').addEventListener('click', function (e) {
@@ -77,10 +89,13 @@ document.querySelector('#confirm-vibrate').addEventListener('click', function (e
     var pattern = document.getElementById('vibrate-pattern').value;
     vibrationPattern = pattern.split(',');
     vibrationConfirmed = true;
+
+    document.getElementById('vibrate-button').style.backgroundColor = '#9FA8DA';
 });
 
 document.querySelector('#cancel-vibrate').addEventListener('click', function (e) {
     vibrationConfirmed = false;
+    document.getElementById('vibrate-button').style.backgroundColor = 'white';
 });
 
 $( document ).ready(function() {
@@ -161,12 +176,14 @@ document.querySelector('#create').addEventListener('click', function (e) {
     //Getting action data
     var geolocationAction = getGeolocationAction();
     var videoAction = getVideoAction();
+    var photoAction = getPhotoAction();
     var vibrationAction = getVibrationAction();
 
     //Creating actions object
     var actions = {};
     actions['geolocation'] = geolocationAction;
     actions['video'] = videoAction;
+    actions['photo'] = photoAction;
     actions['vibration'] = vibrationAction;
 
     //Creating event object
@@ -249,6 +266,10 @@ function getVibrationAction() {
     }
 }
 
+function getPhotoAction() {
+    return photoConfirmed;
+}
+
 function addEvent(uid, event) {
     var eventData = {};
     eventData['uid'] = uid;
@@ -266,9 +287,7 @@ function addEvent(uid, event) {
             url: eventEndpoint,
             data: JSON.stringify(eventData),
             success: function (result) {
-                // $(".container").fadeOut("Slow");
-                // $(".hidden-alert").fadeIn("Slow");
-                // console.log(JSON.stringify(result, null, 2));
+                console.log(JSON.stringify(result, null, 2));
                 location.href = 'events.html';
             }
         });

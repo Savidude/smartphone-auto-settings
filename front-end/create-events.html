@@ -131,24 +131,6 @@
                     <div>Actions</div>
                 </paper-button>
 
-                <paper-dialog id="geolocationDialog">
-                    <h2>Display Geolocation Data</h2>
-                    <p>Would you like to view your current location data when this event is triggered?</p>
-                    <div class="buttons">
-                        <paper-button dialog-dismiss id="cancel-geolocation">No</paper-button>
-                        <paper-button dialog-confirm autofocus id="confirm-geolocation">Yes</paper-button>
-                    </div>
-                </paper-dialog>
-
-                <paper-dialog id="videoDialog">
-                    <h2>Record Video</h2>
-                    <p>Would you like to record video when this event is triggered?</p>
-                    <div class="buttons">
-                        <paper-button dialog-dismiss id="cancel-video">No</paper-button>
-                        <paper-button dialog-confirm autofocus id="confirm-video">Yes</paper-button>
-                    </div>
-                </paper-dialog>
-
                 <paper-dialog id="vibrateDialog">
                     <h2>Vibrate Pattern</h2>
                     <p>Select a preset or type pattern manually (use presets as an example)</p>
@@ -180,21 +162,29 @@
                         <table>
                             <tr>
                                 <div id="geolocation">
-                                    <td class="event-item" onclick="geolocationDialog.open()">
+                                    <td class="event-item" id="geolocation-button">
                                         <i class="fa fa-map-marker fa-2x" aria-hidden="true"></i><br>
                                         <span>Geolocation</span>
                                     </td>
                                 </div>
 
                                 <div id="video">
-                                    <td class="event-item" onclick="videoDialog.open()">
+                                    <td class="event-item" id="video-button">
                                         <i class="fa fa-video-camera fa-2x" aria-hidden="true"></i><br>
                                         <span>Record video</span>
                                     </td>
                                 </div>
 
+                                <div id="photo">
+                                    <td class="event-item" id="photo-button">
+                                        <i class="fa fa-camera fa-2x" aria-hidden="true"></i><br>
+                                        <span>Take photo</span>
+                                    </td>
+                                </div>
+                            </tr>
+                            <tr>
                                 <div id="vibrate">
-                                    <td class="event-item" onclick="vibrateDialog.open()">
+                                    <td class="event-item" onclick="vibrateDialog.open()" id="vibrate-button">
                                         <i class="fa fa-mobile fa-2x" aria-hidden="true"></i><br>
                                         <span>Vibrate</span>
                                     </td>

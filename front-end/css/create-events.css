@@ -7,7 +7,6 @@
 body {
     margin: 0;
     background-color: #455A64;
-    /*color: white;*/
 }
 
 .event-item {
@@ -21,6 +20,13 @@ body {
 td {
     padding-left: 6px;
     padding-right: 6px;
+    padding-top: 6px;
+    padding-bottom: 6px;
+}
+
+table {
+    border-spacing: 10px;
+    border-collapse: separate;
 }
 
 paper-button.event-button {
