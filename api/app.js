@@ -204,8 +204,9 @@ if (hosting === 'local') {
         console.log('CORS-enabled web server listening on port 3000');
     });
 } else if (hosting === 'remote') {
-    app.listen(3000, function () {
-        console.log('Web Server listening on port 3000');
+    app.set('port', (process.env.PORT || 5000));
+    app.listen(app.get('port'), function() {
+        console.log('Node app is running on port', app.get('port'));
     });
 } else {
     console.log('Invalid method of hosting selected. Please select either "local" or "remote" in conf.json')

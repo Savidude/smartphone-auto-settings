@@ -1,11 +1,23 @@
+body{
+    margin: 0;
+}
 app-toolbar {
+    background-color: #1E88E5;
+    font-family: 'Roboto', Helvetica, sans-serif;
     color: white;
+    --app-toolbar-font-size: 30px;
 }
 
 .title {
     text-align: center;
     font-size: 30px;
     font-family: 'Roboto', Helvetica, sans-serif;
+}
+
+.container {
+    margin-top: 24px;
+    margin-left: 12px;
+    margin-right: 12px;
 }
 
 i {
@@ -28,10 +40,19 @@ paper-card {
 
 .event-item {
     text-align: center;
+    vertical-align: top;
+}
+
+.event-item > span {
+    margin-top: 6px;
 }
 
 .event-item > i {
     color: #0091EA;
+}
+
+table {
+    margin-top: 6px;
 }
 
 td {
@@ -47,6 +68,7 @@ tr {
     margin-top: 12px;
     color: #616161;
     font-size: 24px;
+    margin-bottom: 12px;
 }
 
 .conditions {

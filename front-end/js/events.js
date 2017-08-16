@@ -101,13 +101,13 @@ function createEventCard(event) {
                                 var days = '';
                                 conditionsData.days.forEach(function (value) {
                                     switch (value) {
-                                        case 0: days += 'Monday '; break;
-                                        case 1: days += 'Tuesday '; break;
-                                        case 2: days += 'Wednesday '; break;
-                                        case 3: days += 'Thursday '; break;
-                                        case 4: days += 'Friday '; break;
-                                        case 5: days += 'Saturday '; break;
-                                        case 6: days += 'Sunday '; break;
+                                        case '0': days += 'Mon '; break;
+                                        case '1': days += 'Tue '; break;
+                                        case '2': days += 'Wed '; break;
+                                        case '3': days += 'Thu '; break;
+                                        case '4': days += 'Fri '; break;
+                                        case '5': days += 'Sat '; break;
+                                        case '6': days += 'Sun '; break;
                                     }
                                 });
                                 conditionTableData.innerHTML = '<i class="fa fa-calendar fa-2x" aria-hidden="true"></i><br>' +
@@ -136,7 +136,12 @@ function createEventCard(event) {
                         case 'charging':
                             if (conditionsData.charging !== undefined) {
                                 var chargingStatus = conditionsData.charging;
-                                conditionTableData.innerHTML = '<i class="fa fa-plug fa-2x" aria-hidden="true"></i><br><br>' +
+                                if (chargingStatus === 'charging') {
+                                    chargingStatus = 'Charging';
+                                } else if (chargingStatus === 'discharging') {
+                                    chargingStatus = 'Discharging';
+                                }
+                                conditionTableData.innerHTML = '<i class="fa fa-plug fa-2x" aria-hidden="true"></i><br>' +
                                     '<span>' + chargingStatus + '</span>';
                                 conditionsRow.appendChild(conditionTableData);
                             }
@@ -145,11 +150,11 @@ function createEventCard(event) {
                 }
 
         var actions = document.createElement('div');
-        actions.className = 'conditions';
+        actions.className = 'actions';
         info.appendChild(actions);
 
             var actionsLabel = document.createElement('span');
-            actions.innerHTML = 'ACTIONS';
+            actionsLabel.innerHTML = 'ACTIONS';
             actions.appendChild(actionsLabel);
 
             var actionsTable = document.createElement('table');
@@ -186,8 +191,13 @@ function createEventCard(event) {
                         }
                         break;
                     case 'vibration':
+                        var pattern = actionsData.vibration;
+                        var patternString = '';
+                        pattern.forEach(function (value) {
+                            patternString += value + ' ';
+                        });
                         actionTableData.innerHTML = '<i class="fa fa-mobile fa-2x" aria-hidden="true"></i><br>' +
-                            '<span>Vibrate</span>';
+                            '<span><b>Vibrate</b><br>' + patternString + '</span>';
                         actionsRow.appendChild(actionTableData);
                         break;
                 }

@@ -1,5 +1,18 @@
+body {
+    margin: 0;
+}
+
 app-toolbar {
+    background-color: #1E88E5;
+    font-family: 'Roboto', Helvetica, sans-serif;
     color: white;
+    --app-toolbar-font-size: 24px;
+}
+
+.container {
+    margin-top: 24px;
+    margin-left: 12px;
+    margin-right: 12px;
 }
 
 .title {

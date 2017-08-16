@@ -28,12 +28,23 @@ paper-button.amber {
     color: white;
 }
 
+paper-button.amber > span {
+    font-size: 24px;
+    font-weight: bold;
+    margin-top: 140px;
+    margin-left: -90px;
+}
+
+paper-button.amber > i {
+    margin-left: 20px;
+}
+
 paper-button.red {
     background-color: #F44336;
     color: white;
 }
 
-paper-button > span {
+paper-button.red > span {
     font-size: 24px;
     font-weight: bold;
     margin-top: 140px;

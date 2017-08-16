@@ -1,7 +1,12 @@
 body {
     margin: 0;
-    background-color: #2962FF;
     color: white;
+}
+app-toolbar {
+    background-color: #1E88E5;
+    font-family: 'Roboto', Helvetica, sans-serif;
+    color: white;
+    --app-toolbar-font-size: 30px;
 }
 .title {
     text-align: center;
@@ -9,6 +14,7 @@ body {
     font-family: 'Roboto', Helvetica, sans-serif;
 }
 .content {
+    margin-top: 24px;
     text-align: center;
 }
 paper-input {
