@@ -1,6 +1,18 @@
 var locationId;
 var locationName;
 
+document.querySelector('#drawer-home').addEventListener('click', function (e) {
+    location.href = '/'
+});
+
+document.querySelector('#drawer-locations').addEventListener('click', function (e) {
+    location.href = 'locations.html'
+});
+
+document.querySelector('#drawer-events').addEventListener('click', function (e) {
+    location.href = 'events.html'
+});
+
 $(document).ready(function() {
     //Hiding HTML elements
     $('.location-create').hide();

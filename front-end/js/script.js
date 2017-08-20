@@ -3,7 +3,18 @@ document.querySelector('#locations-btn').addEventListener('click', function (e) 
 });
 
 document.querySelector('#events-btn').addEventListener('click', function (e) {
-    console.log('-------------')
+    location.href = 'events.html'
+});
+
+document.querySelector('#drawer-home').addEventListener('click', function (e) {
+    location.href = '#'
+});
+
+document.querySelector('#drawer-locations').addEventListener('click', function (e) {
+    location.href = 'locations.html'
+});
+
+document.querySelector('#drawer-events').addEventListener('click', function (e) {
     location.href = 'events.html'
 });
 
