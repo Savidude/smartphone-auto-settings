@@ -25,8 +25,20 @@ $(document).ready(function() {
                             type: 'GET',
                             contentType: 'application/json',
                             success: function (eventData) {
-                                console.log(JSON.stringify(eventData, null, 2));
-                                createEventCard(eventData.event);
+                                var locationId = eventData.event.location;
+                                var locationDataEndpoint = apiEndpointUrl + '/api/location/' + locationId;
+                                $.ajax({
+                                    url: locationDataEndpoint,
+                                    type: 'GET',
+                                    contentType: 'application/json',
+                                    success: function (location) {
+                                        var locationName = location.name;
+                                        createEventCard(eventData.event, locationName);
+                                    },
+                                    error: function (error) {
+                                        console.log(error);
+                                    }
+                                });
                             },
                             error: function (error) {
                                 console.log(error);
@@ -53,7 +65,7 @@ $(document).ready(function() {
     }
 });
 
-function createEventCard(event) {
+function createEventCard(event, locationName) {
     var card = document.createElement('paper-card');
 
     var content = document.createElement('div');
@@ -69,7 +81,7 @@ function createEventCard(event) {
     var description = document.createElement('div');
     description.className = 'card-description';
     description.innerHTML = '<i class="fa fa-map-marker" aria-hidden="true"></i>' +
-                            '<span>Location Name</span>'; //TODO: Get actual location name
+                            '<span>' + locationName + '</span>';
     content.appendChild(description);
 
     var info = document.createElement('div');
@@ -143,6 +155,14 @@ function createEventCard(event) {
                                 }
                                 conditionTableData.innerHTML = '<i class="fa fa-plug fa-2x" aria-hidden="true"></i><br>' +
                                     '<span>' + chargingStatus + '</span>';
+                                conditionsRow.appendChild(conditionTableData);
+                            }
+                            break;
+                        case 'time':
+                            if (conditionsData.time !== undefined) {
+                                var timeRange = conditionsData.time.start.time + ' - ' + conditionsData.time.end.time;
+                                conditionTableData.innerHTML = '<i class="fa fa-clock-o fa-2x" aria-hidden="true"></i><br>' +
+                                    '<span>' + timeRange + '</span>';
                                 conditionsRow.appendChild(conditionTableData);
                             }
                             break;

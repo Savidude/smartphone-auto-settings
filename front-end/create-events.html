@@ -22,12 +22,14 @@
         <link rel="import" href="bower_components/paper-radio-group/paper-radio-group.html">
         <link rel="import" href="bower_components/paper-radio-button/paper-radio-button.html">
         <link rel="import" href="bower_components/paper-dialog/paper-dialog.html">
+        <link rel="import" href="bower_components/paper-dialog-scrollable/paper-dialog-scrollable.html">
         <link rel="import" href="bower_components/paper-dropdown-menu/paper-dropdown-menu.html">
         <link rel="import" href="bower_components/paper-listbox/paper-listbox.html">
         <link rel="import" href="bower_components/paper-item/paper-item.html">
         <link rel="import" href="bower_components/paper-slider/paper-slider.html">
         <link rel="import" href="bower_components/paper-checkbox/paper-checkbox.html">
         <link rel="import" href="bower_components/paper-input/paper-input.html">
+        <link rel="import" href="bower_components/paper-time-picker/paper-time-picker.html">
 
         <link rel="stylesheet" type="text/css" href="lib/font-awesome-4.7.0/css/font-awesome.min.css">
         <link rel="stylesheet" type="text/css" href="css/create-events.css">
@@ -77,6 +79,21 @@
                     </div>
                 </paper-dialog>
 
+                <paper-dialog id="timeDialog">
+                    <paper-dialog-scrollable>
+                        <h2>Start time</h2>
+                        <paper-time-picker id="start-time"></paper-time-picker>
+
+                        <h2>End time</h2>
+                        <paper-time-picker id="end-time"></paper-time-picker>
+                    </paper-dialog-scrollable>
+
+                    <div class="buttons">
+                        <paper-button dialog-dismiss id="cancel-time">Cancel</paper-button>
+                        <paper-button dialog-confirm id="confirm-time">OK</paper-button>
+                    </div>
+                </paper-dialog>
+
                 <iron-collapse id="conditions">
                     <div class="collapse-content">
                         <table>
@@ -117,6 +134,15 @@
                                         <paper-checkbox name="day-check" value="5">Saturday</paper-checkbox> <br>
                                         <paper-checkbox name="day-check" value="6">Sunday</paper-checkbox>
                                     </iron-collapse>
+                                </div>
+                            </tr>
+
+                            <tr>
+                                <div id="time">
+                                    <td class="event-item" onclick="timeDialog.open()">
+                                        <i class="fa fa-clock-o fa-2x" aria-hidden="true"></i><br>
+                                        <span>Time</span>
+                                    </td>
                                 </div>
                             </tr>
                         </table>

@@ -21,6 +21,11 @@ function validateConditions(events) {
                         if (conditions.charging !== undefined) {
                             conditionPromises[j] = validateChargingStatus(conditions.charging);
                         }
+                    case 'time':
+                        if (conditions.time !== undefined) {
+                            conditionPromises[j] = validateTime(conditions.time);
+                        }
+                        break;
                 }
             }
 
@@ -119,4 +124,26 @@ function validateChargingStatus(chargingCondition, callback) {
             });
         }
     })
+}
+
+function validateTime(time) {
+    return new Promise(function (resolve, reject) {
+        var date = new Date();
+        var hour = date.getHours();
+        var minute = date.getMinutes();
+        var isValid = false;
+
+        var startHr = time.start.hour;
+        var endHr = time.end.hour;
+
+        if ((hour > startHr && hour < endHr)) {
+            isValid = true;
+        } else if (hour === startHr) {
+            isValid = (minute > time.start.minute)
+        } else if (hour === endHr) {
+            isValid = (minute < time.end.minutes)
+        }
+
+        resolve(isValid);
+    });
 }

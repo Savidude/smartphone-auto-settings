@@ -33,6 +33,8 @@
     "paper-input": "PolymerElements/paper-input#^2.0.0",
     "paper-toast": "PolymerElements/paper-toast#^2.0.0",
     "bootstrap": "^3.3.7",
-    "google-map": "polymer/google-map#^1.2.0"
+    "google-map": "polymer/google-map#^1.2.0",
+    "paper-time-picker": "^1.1.5",
+    "paper-dialog-scrollable": "^2.1.0"
   }
 }

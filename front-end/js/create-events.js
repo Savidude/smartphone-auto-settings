@@ -1,5 +1,7 @@
 var loc_id;
 var batteryConfirmed = false;
+var timeConfirmed = false;
+
 var geolocationConfirmed = false;
 var videoConfirmed = false;
 var photoConfirmed = false;
@@ -16,6 +18,27 @@ document.querySelector('#confirm-battery').addEventListener('click', function (e
 
 document.querySelector('#cancel-battery').addEventListener('click', function (e) {
     batteryConfirmed = false;
+});
+
+document.querySelector('#confirm-time').addEventListener('click', function (e) {
+    var startTimePicker = document.getElementById('start-time');
+    var endTimePicker = document.getElementById('end-time');
+
+    if (startTimePicker.hour < endTimePicker.hour) {
+        timeConfirmed = true;
+    } else if (startTimePicker.hour === endTimePicker.hour) {
+        if (startTimePicker.minute < endTimePicker.minute) {
+            timeConfirmed = true;
+        } else {
+            alert('Start time must come before end time');
+        }
+    } else {
+        alert('Start time must come before end time');
+    }
+});
+
+document.querySelector('#cancel-time').addEventListener('click', function (e) {
+    timeConfirmed = false;
 });
 
 document.querySelector('#geolocation-button').addEventListener('click', function (e) {
@@ -166,12 +189,14 @@ document.querySelector('#create').addEventListener('click', function (e) {
     var batteryCondition = getBatteryCondition();
     var chargingStatusCondition = getChargingStatusCondition();
     var daysCondition = getDaysOfWeekCondition();
+    var timeCondition = getTimeCondition();
 
     //Creating conditions object
     var conditions = {};
     conditions['battery'] = batteryCondition;
     conditions['charging'] = chargingStatusCondition;
     conditions['days'] = daysCondition;
+    conditions['time'] = timeCondition;
 
     //Getting action data
     var geolocationAction = getGeolocationAction();
@@ -246,6 +271,26 @@ function getDaysOfWeekCondition() {
     }
     if (checkedDays.length > 0) {
         return checkedDays;
+    }
+}
+
+function getTimeCondition() {
+    if (timeConfirmed) {
+        var timeData = {};
+
+        timeData['start'] = {};
+        var startTimePicker = document.getElementById('start-time');
+        timeData['start']['time'] = startTimePicker.time;
+        timeData['start']['hour'] = startTimePicker.hour;
+        timeData['start']['minute'] = startTimePicker.minute;
+
+        timeData['end'] = {};
+        var endTimePicker = document.getElementById('end-time');
+        timeData['end']['time'] = endTimePicker.time;
+        timeData['end']['hour'] = endTimePicker.hour;
+        timeData['end']['minute'] = endTimePicker.minute;
+
+        return timeData;
     }
 }
 
