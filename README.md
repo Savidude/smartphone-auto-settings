@@ -15,5 +15,3 @@ $ git npm install -g bower
 #### Running the application
 1. Start the [API Server](https://github.com/Savidude/smartphone-auto-settings/blob/master/api/README.md)
 2. Start the [Front End Application](https://github.com/Savidude/smartphone-auto-settings/blob/master/front-end/README.md)
-![Home Page](https://github.com/savidude/smartphone-auto-settings/blob/master/documentation/images/home-page.png "Home Page")
-
