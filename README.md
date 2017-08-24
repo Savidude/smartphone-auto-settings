@@ -1,8 +1,8 @@
 # Smartphone Auto Settings
 Physical Web Smartphone Auto Settings Project
 
-Project Website: https://smartphone-auto-settings-d61a2.firebaseapp.com/
-Project Worklog: https://docs.google.com/document/d/1As7U4RPtIrKABsjSoFyjlqmkOcLOZVnNwbmAIGHQtyU/edit?usp=sharing
+* Project Website: https://smartphone-auto-settings-d61a2.firebaseapp.com/
+* Project Worklog: https://docs.google.com/document/d/1As7U4RPtIrKABsjSoFyjlqmkOcLOZVnNwbmAIGHQtyU/edit?usp=sharing
 
 ### Setting up
 1. Clone the repository
